@@ -5,5 +5,7 @@
         public const string SystemName = "HardwareAffinity";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const string AdministratorUserName = "Valentin";
     }
 }
