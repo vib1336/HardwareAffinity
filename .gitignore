@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/Web/HardwareAffinity.Web/wwwroot/lib
+/src/Web/HardwareAffinity.Web/wwwroot/js/site.min.js
+/src/Web/HardwareAffinity.Web/wwwroot/css/site.min.css
