@@ -7,5 +7,19 @@
         public const string AdministratorRoleName = "Administrator";
 
         public const string AdministratorUserName = "Valentin";
+
+        public const int ProductDescriptionMaxLength = 5000;
+
+        public const int ProductDescriptionMinLength = 15;
+
+        public const int ProductTitleMaxLength = 150;
+
+        public const int ProductTitleMinLength = 3;
+
+        public const int CategoryDescriptionMaxLength = 350;
+
+        public const int CategoryTitleMaxLength = 50;
+
+        public const int CategoryTitleMinLength = 2;
     }
 }

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\HardwareAffinity.Common\HardwareAffinity.Common.csproj" />
     <ProjectReference Include="..\HardwareAffinity.Data.Common\HardwareAffinity.Data.Common.csproj" />
   </ItemGroup>
   
