@@ -1,6 +1,7 @@
 ﻿namespace HardwareAffinity.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using HardwareAffinity.Data.Common.Repositories;
@@ -8,14 +9,20 @@
     using HardwareAffinity.Services.Mapping;
     using Microsoft.EntityFrameworkCore;
 
-    public class CategoryService : ICategoryService
+    public class CategoriesService : ICategoriesService
     {
         private readonly IRepository<Category> categoriesRepository;
 
-        public CategoryService(IRepository<Category> categoriesRepository)
+        public CategoriesService(IRepository<Category> categoriesRepository)
             => this.categoriesRepository = categoriesRepository;
 
         public async Task<IEnumerable<T>> GetAllCategoriesAsync<T>()
             => await this.categoriesRepository.All().To<T>().ToListAsync();
+
+        public async Task<T> GetCategoryAsync<T>(int id)
+            => await this.categoriesRepository.All()
+            .Where(c => c.Id == id)
+            .To<T>()
+            .FirstOrDefaultAsync();
     }
 }

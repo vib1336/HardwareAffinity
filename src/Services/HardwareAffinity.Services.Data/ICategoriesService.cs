@@ -3,8 +3,10 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface ICategoryService
+    public interface ICategoriesService
     {
         Task<IEnumerable<T>> GetAllCategoriesAsync<T>();
+
+        Task<T> GetCategoryAsync<T>(int id);
     }
 }
