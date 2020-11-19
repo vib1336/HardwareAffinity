@@ -21,5 +21,11 @@
         public const int CategoryTitleMaxLength = 50;
 
         public const int CategoryTitleMinLength = 2;
+
+        public const double ProductMinPrice = 0.05;
+
+        public const double ProductMaxPrice = 100000;
+
+        public const int TvCategoryId = 1; 
     }
 }
