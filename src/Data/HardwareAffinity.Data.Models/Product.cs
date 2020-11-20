@@ -27,6 +27,9 @@
         [Range(ProductMinPrice, ProductMaxPrice)]
         public decimal Price { get; set; }
 
+        [Required]
+        public string MainImageUrl { get; set; }
+
         public ICollection<Image> Images { get; set; }
 
         public int CategoryId { get; set; }

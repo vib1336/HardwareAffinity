@@ -18,6 +18,9 @@
             this.productsRepository = productsRepository;
         }
 
+        public async Task<int> CountProductsFromCategoryAsync(int categoryId)
+            => await this.productsRepository.All().CountAsync(p => p.CategoryId == categoryId);
+
         public async Task<IEnumerable<T>> GetProductsForCategoryAsync<T>(int categoryId)
             => await this.productsRepository.All()
             .Where(p => p.CategoryId == categoryId)

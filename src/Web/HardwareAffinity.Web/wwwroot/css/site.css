@@ -1,6 +1,25 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+/*Custom CSS*/
+
+.container-custom {
+    padding: 2rem 0rem;
+}
+
+h4 {
+    margin: 2rem 0rem 1rem;
+}
+
+.table-image td {
+    vertical-align: middle;
+}
+
+.table-image th {
+    vertical-align: middle;
+}
+
+/*Custom CSS*/
 a.navbar-brand {
     white-space: normal;
     text-align: center;

@@ -1,5 +1,6 @@
 ﻿namespace HardwareAffinity.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using HardwareAffinity.Services.Data;
@@ -22,13 +23,30 @@
             this.productsService = productsService;
         }
 
-        public async Task<IActionResult> AllTVs()
+        public async Task<IActionResult> AllTVs(int page = 1)
         {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            int totalTVs = await this.productsService.CountProductsFromCategoryAsync(TvCategoryId);
+
+            int maxPage = (int)Math.Ceiling((double)totalTVs / ProductsPerPage);
+
+            if (maxPage == 0)
+            {
+                // empty subcategory
+            }
+
             var categoryViewModel = await this.categoriesService
                 .GetCategoryAsync<CategoryDisplayModel>(TvCategoryId);
 
             categoryViewModel.AllTVs = await this.productsService
                 .GetProductsForCategoryAsync<AllProductsForCategoryViewModel>(TvCategoryId);
+
+            categoryViewModel.CurrentPage = page;
+            categoryViewModel.MaxPage = maxPage;
 
             return this.View(categoryViewModel);
         }

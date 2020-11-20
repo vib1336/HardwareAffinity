@@ -6,5 +6,7 @@
     public interface IProductsService
     {
         Task<IEnumerable<T>> GetProductsForCategoryAsync<T>(int categoryId);
+
+        Task<int> CountProductsFromCategoryAsync(int categoryId);
     }
 }

@@ -26,6 +26,8 @@
 
         public const double ProductMaxPrice = 100000;
 
-        public const int TvCategoryId = 1; 
+        public const int TvCategoryId = 1;
+
+        public const int ProductsPerPage = 10;
     }
 }
