@@ -351,3 +351,4 @@ MigrationBackup/
 /src/Web/HardwareAffinity.Web/wwwroot/lib
 /src/Web/HardwareAffinity.Web/wwwroot/js/site.min.js
 /src/Web/HardwareAffinity.Web/wwwroot/css/site.min.css
+/src/Web/HardwareAffinity.Web/appsettings.Production.json
