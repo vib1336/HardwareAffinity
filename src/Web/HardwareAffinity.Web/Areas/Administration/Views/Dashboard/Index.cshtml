@@ -1,7 +1,45 @@
-﻿@model HardwareAffinity.Web.ViewModels.Administration.Dashboard.IndexViewModel
+﻿@model HardwareAffinity.Web.ViewModels.Products.CreateProductInputModel
 @{
     this.ViewData["Title"] = "Admin dashboard";
 }
 
-<h1>@this.ViewData["Title"]</h1>
-Settings: @this.Model.SettingsCount
+    <form asp-controller="Dashboard" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" placeholder="Product title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="form-control" placeholder="Description" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price"></label>
+            <input asp-for="Price" class="form-control" placeholder="Price" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Select a category</label>
+            <select class="form-control" name="CategoryId">
+                <option disabled selected value=""></option>
+                @foreach (var category in this.Model.Categories)
+                {
+                    <option value="@category.Id">@category.Title</option>
+                }
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Images</label>
+            <br />
+            <input type="file" multiple />
+        </div>
+
+        <input type="submit" value="Create product" class="btn btn-success" />
+
+    </form>

@@ -1,23 +1,55 @@
 ﻿namespace HardwareAffinity.Web.Areas.Administration.Controllers
 {
-    using HardwareAffinity.Services.Data;
-    using HardwareAffinity.Web.ViewModels.Administration.Dashboard;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
 
+    using HardwareAffinity.Services.Data;
+    using HardwareAffinity.Web.ViewModels.Categories;
+    using HardwareAffinity.Web.ViewModels.Products;
     using Microsoft.AspNetCore.Mvc;
 
     public class DashboardController : AdministrationController
     {
-        private readonly ISettingsService settingsService;
+        private readonly ICategoriesService categoriesService;
+        private readonly IProductsService productsService;
 
-        public DashboardController(ISettingsService settingsService)
+        public DashboardController(ICategoriesService categoriesService, IProductsService productsService)
         {
-            this.settingsService = settingsService;
+            this.categoriesService = categoriesService;
+            this.productsService = productsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
-            return this.View(viewModel);
+            var createProductInputModel = new CreateProductInputModel
+            {
+                Categories = await this.categoriesService
+                .GetAllCategoriesAsync<CategoryFormDataModel>(),
+            };
+
+            return this.View(createProductInputModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(CreateProductInputModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View("Index", inputModel);
+            }
+
+            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            var productId = await this.productsService.CreateProduct(
+                inputModel.Title,
+                inputModel.Description,
+                inputModel.Price,
+                inputModel.CategoryId,
+                userId,
+                inputModel.Images);
+
+            return null;
         }
     }
 }
