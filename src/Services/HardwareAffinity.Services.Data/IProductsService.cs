@@ -11,7 +11,7 @@
 
         Task<int> CountProductsFromCategoryAsync(int categoryId);
 
-        Task<int> CreateProduct(
+        Task<string> CreateProductAsync(
             string title,
             string description,
             decimal price,

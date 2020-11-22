@@ -41,7 +41,7 @@
 
             var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            var productId = await this.productsService.CreateProduct(
+            var productId = await this.productsService.CreateProductAsync(
                 inputModel.Title,
                 inputModel.Description,
                 inputModel.Price,
