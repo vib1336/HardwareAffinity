@@ -12,7 +12,7 @@
 
         <div class="form-group">
             <label asp-for="Description"></label>
-            <input asp-for="Description" class="form-control" placeholder="Description" />
+            <textarea asp-for="Description" class="form-control" placeholder="Description" rows="5"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
@@ -37,7 +37,7 @@
         <div class="form-group">
             <label>Images</label>
             <br />
-            <input type="file" multiple />
+            <input type="file" name="Images" multiple />
         </div>
 
         <input type="submit" value="Create product" class="btn btn-success" />

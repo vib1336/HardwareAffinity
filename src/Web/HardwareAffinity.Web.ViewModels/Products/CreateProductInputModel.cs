@@ -23,7 +23,7 @@
 
         public int CategoryId { get; set; }
 
-        public ICollection<IFormFile> Images { get; set; }
+        public IEnumerable<IFormFile> Images { get; set; }
 
         public IEnumerable<CategoryFormDataModel> Categories { get; set; }
     }

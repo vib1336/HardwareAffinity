@@ -49,7 +49,7 @@
                 userId,
                 inputModel.Images);
 
-            return null;
+            return this.Redirect("/");
         }
     }
 }

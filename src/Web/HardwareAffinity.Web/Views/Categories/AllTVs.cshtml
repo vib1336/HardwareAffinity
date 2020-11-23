@@ -27,8 +27,8 @@
                             </th>
                             <td>@product.Title</td>
                             <td>@product.ShortDescription</td>
-                            <td>@product.Price</td>
-                            <td><a class="btn btn-primary">Details</a></td>
+                            <td>€ @product.Price</td>
+                            <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a></td>
                         </tr>
                     }
                 </tbody>

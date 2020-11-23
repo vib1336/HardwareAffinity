@@ -47,10 +47,13 @@
                 Price = price,
                 CategoryId = categoryId,
                 UserId = userId,
+                MainImageUrl = string.Empty,
             };
 
             await this.productsRepository.AddAsync(product);
             await this.productsRepository.SaveChangesAsync();
+
+            var pr = this.productsRepository.All().FirstOrDefault(p => p.Id == product.Id);
 
             int counter = 1;
 
@@ -77,11 +80,11 @@
 
                         uploadResult = await this.cloudinary.UploadAsync(uploadParams);
 
-                        product.MainImageUrl = uploadResult.Uri.AbsoluteUri;
+                        pr.MainImageUrl = uploadResult.Uri.AbsoluteUri;
                         var img = new Image
                         {
                             ImageUrl = uploadResult.Uri.AbsoluteUri,
-                            ProductId = product.Id,
+                            ProductId = pr.Id,
                         };
 
                         await this.imagesRepository.AddAsync(img);
@@ -108,7 +111,7 @@
                         var img = new Image
                         {
                             ImageUrl = uploadResult.Uri.AbsoluteUri,
-                            ProductId = product.Id,
+                            ProductId = pr.Id,
                         };
 
                         await this.imagesRepository.AddAsync(img);
@@ -129,5 +132,10 @@
             .To<T>()
             .ToListAsync();
 
+        public async Task<T> GetProductAsync<T>(string id)
+            => await this.productsRepository.All()
+            .Where(p => p.Id == id)
+            .To<T>()
+            .FirstOrDefaultAsync();
     }
 }

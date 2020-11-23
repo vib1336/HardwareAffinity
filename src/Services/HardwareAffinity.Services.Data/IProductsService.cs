@@ -18,5 +18,7 @@
             int categoryId,
             string userId,
             IEnumerable<IFormFile> images);
+
+        Task<T> GetProductAsync<T>(string id);
     }
 }
