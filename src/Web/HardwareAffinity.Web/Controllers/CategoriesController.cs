@@ -11,7 +11,6 @@
 
     using static HardwareAffinity.Common.GlobalConstants;
 
-    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly ICategoriesService categoriesService;

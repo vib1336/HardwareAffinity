@@ -9,7 +9,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductsService productsService;
