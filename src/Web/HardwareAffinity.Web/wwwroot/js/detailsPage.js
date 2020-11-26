@@ -11,7 +11,8 @@ function sendVote(productId, rate) {
         dataType: "json",
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
-            
+            var average = data['average'];
+            $('#votesInfo').html(`${average} / 5`);
         }
     });
 }

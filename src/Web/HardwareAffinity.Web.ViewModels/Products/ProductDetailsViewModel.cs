@@ -16,6 +16,8 @@
 
         public decimal Price { get; set; }
 
+        public double AverageRate { get; set; }
+
         public IList<ImageInfoModel> Images { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     public enum VoteType
     {
+        NoRate = 0,
         Poor = 1,
         Fair = 2,
         Average = 3,

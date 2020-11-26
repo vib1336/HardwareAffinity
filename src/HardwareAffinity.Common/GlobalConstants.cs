@@ -29,5 +29,9 @@
         public const int TvCategoryId = 1;
 
         public const int ProductsPerPage = 10;
+
+        public const int CommentMaxLength = 400;
+
+        public const int CommentMinLength = 5;
     }
 }
