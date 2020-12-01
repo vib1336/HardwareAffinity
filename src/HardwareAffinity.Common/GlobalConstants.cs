@@ -33,5 +33,13 @@
         public const int CommentMaxLength = 400;
 
         public const int CommentMinLength = 5;
+
+        public const string ErrorMessage = "Cannot post comment for this product.";
+
+        public const string InvalidComment = "Invalid comment.";
+
+        public const string UnexistentProduct = "Unexistent product cannot be modified.";
+
+        public const string InvalidProductModel = "Input product model is not valid.";
     }
 }

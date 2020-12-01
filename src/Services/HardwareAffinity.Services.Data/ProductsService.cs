@@ -137,5 +137,30 @@
             .Where(p => p.Id == id)
             .To<T>()
             .FirstOrDefaultAsync();
+
+        public async Task<bool> ProductExistsAsync(string id)
+            => await this.productsRepository.All()
+            .AnyAsync(p => p.Id == id);
+
+        public async Task<bool> ProductIsDeletedAsync(string id)
+            => await this.productsRepository.All()
+            .Where(p => p.Id == id)
+            .Select(p => p.IsDeleted)
+            .FirstOrDefaultAsync();
+
+        public async Task UpdateProductAsync(string id, string title, string description)
+        {
+            var product = await this.productsRepository.All().FirstOrDefaultAsync(p => p.Id == id);
+
+            if (product == null)
+            {
+                return;
+            }
+
+            product.Title = title;
+            product.Description = description;
+
+            await this.productsRepository.SaveChangesAsync();
+        }
     }
 }

@@ -1,10 +1,19 @@
 ﻿@using HardwareAffinity.Web.ViewModels.Categories
+@using static HardwareAffinity.Common.GlobalConstants
 @model CategoryDisplayModel
 
 @{
     this.ViewData["Title"] = this.Model.Title;
 }
-
+<div class="float-right">
+    <a class="btn btn-info">
+        Name
+    </a>
+    <a class="btn btn-info">
+        <i class="fas fa-arrow-up"></i> Price
+    </a>
+</div>
+<div class="clearfix"></div>
 <div class="container-custom">
     <div class="row">
         <div class="col-12">
@@ -16,6 +25,10 @@
                         <th scope="col">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">View</th>
+                        @if (this.User.IsInRole(AdministratorRoleName))
+                        {
+                            <th scope="col">Delete</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +42,11 @@
                             <td>@product.ShortDescription</td>
                             <td>€ @product.Price</td>
                             <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a></td>
+                            @if (this.User.IsInRole(AdministratorRoleName))
+                            {
+                                <td><a class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                            }
+
                         </tr>
                     }
                 </tbody>

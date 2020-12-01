@@ -44,14 +44,19 @@
             </div>
         </nav>
     </header>
-    
+    @if (this.TempData["InfoMessage"] != null)
+    {
+        <div id="tempData" class="alert alert-danger">
+            @this.TempData["InfoMessage"]
+        </div>
+    }
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -64,6 +69,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script src="~/js/detailsPage.js" asp-append-version="true"></script>
+    <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

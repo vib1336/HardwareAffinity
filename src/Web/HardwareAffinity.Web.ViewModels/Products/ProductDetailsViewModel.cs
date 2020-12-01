@@ -4,6 +4,7 @@
 
     using HardwareAffinity.Data.Models;
     using HardwareAffinity.Services.Mapping;
+    using HardwareAffinity.Web.ViewModels.Comments;
     using HardwareAffinity.Web.ViewModels.Images;
 
     public class ProductDetailsViewModel : IMapFrom<Product>
@@ -19,5 +20,7 @@
         public double AverageRate { get; set; }
 
         public IList<ImageInfoModel> Images { get; set; }
+
+        public IEnumerable<CommentInfoModel> Comments { get; set; }
     }
 }

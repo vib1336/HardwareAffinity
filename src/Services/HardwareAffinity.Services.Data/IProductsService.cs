@@ -20,5 +20,11 @@
             IEnumerable<IFormFile> images);
 
         Task<T> GetProductAsync<T>(string id);
+
+        Task<bool> ProductExistsAsync(string id);
+
+        Task<bool> ProductIsDeletedAsync(string id);
+
+        Task UpdateProductAsync(string id, string title, string description);
     }
 }

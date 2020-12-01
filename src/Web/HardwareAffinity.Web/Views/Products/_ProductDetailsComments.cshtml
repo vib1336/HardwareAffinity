@@ -1,0 +1,6 @@
+﻿@model HardwareAffinity.Web.ViewModels.Comments.CommentInfoModel
+
+<span><i class="fas fa-calendar"></i> <time datetime="@this.Model.CreatedOn.ToString("O")"></time> | <i class="fas fa-user"></i> @this.Model.UserUserName</span>
+<br />
+<p>@this.Model.Content</p>
+<hr />

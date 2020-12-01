@@ -1,7 +1,9 @@
 ﻿@model HardwareAffinity.Web.ViewModels.Products.ProductDetailsViewModel
+@using static HardwareAffinity.Common.GlobalConstants
 @{
     this.ViewData["Title"] = this.Model.Title;
 }
+<div id="PlaceHolderHere"></div>
 
 <div class="container">
     <div class="row">
@@ -19,7 +21,7 @@
         </div>
         <div class="col-md-6">
             <div class="row">
-                <h2>@this.Model.Title</h2>
+                <h2 id="ProductTitle">@this.Model.Title</h2>
             </div>
             <div class="row">
                 <h1><i class="fas fa-euro-sign"></i> @this.Model.Price</h1>
@@ -28,8 +30,17 @@
                 <form id="votesForm" method="post"></form>
                 @for (int i = 1; i <= 5; i++)
                 {
+                    var rate = i switch
+                    {
+                        1 => "Poor",
+                        2 => "Fair",
+                        3 => "Average",
+                        4 => "Good",
+                        5 => "Excellent",
+                        _ => "NoRate",
+                    };
                     <h3 class="text-warning">
-                        <a href="#" onclick="sendVote('@this.Model.Id', @i)">
+                        <a href="#" title="@rate" onclick="sendVote('@this.Model.Id', @i)">
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </a>
                     </h3>
@@ -38,33 +49,50 @@
                 <h5 id="votesInfo">@this.Model.AverageRate / 5</h5>
             </div>
             <div class="row">
-                <p><i class="text-success fa fa-check-square-o" aria-hidden="true"></i> <strong>Description</strong> @this.Model.Description</p>
+                <p id="ProductDescription"><i class="text-success fa fa-check-square-o" aria-hidden="true"></i> <strong>Description</strong> @this.Model.Description</p>
             </div>
             <div class="row mt-4">
                 <h3 class="text-info"><i class="fa fa-map-marker" aria-hidden="true"></i></h3>
                 <p style="font-size: 20px"> &nbsp; Delivery by23 Jul, Tuesday | &nbsp; <span class="text-success">FREE</span> </p>
             </div>
             <div class="row mt-4">
-                <h4>Size: &nbsp; &nbsp;</h4>
-                <div class="dropdown show">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select sizes </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="#">small</a> <a class="dropdown-item" href="#">meduam </a> <a class="dropdown-item" href="#">large</a> </div>
+                <h4>Buy: &nbsp; &nbsp;</h4>
+                <div class="buy-button">
+                    <a class="btn btn-danger" href="#"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                    <button type="button" class="btn btn-primary" onclick="showCommentBox()">
+                        <i class="fas fa-comment"></i> Comment
+                    </button>
+                    @if (this.User.IsInRole(AdministratorRoleName))
+                    {
+                        <button type="button" class="btn btn-warning" data-toggle="ajax-modal"
+                                data-target="#editProduct" data-url="@Url.Action("EditProduct", "Products", new { id = this.Model.Id})">
+                            <i class="fas fa-edit"></i>Edit
+                        </button>
+                    }
                 </div>
             </div>
-            <div class="row mt-4">
-                <h4>Colors: &nbsp; &nbsp; </h4>
-
-                <a class="btn btn-primary text-light">Sky Blue</a> &nbsp; <a class="btn btn-danger text-light"> red</a>&nbsp; <a class="btn btn-info text-light"> blue </a> &nbsp; <a class="btn btn-warning text-light"> yellow</a> &nbsp; <a class="btn btn-success text-light"> green</a>
-            </div>
-
-            <div class="row mt-4">
-                <h4>Seller: &nbsp; &nbsp;</h4>
-                <p style="font-size: 18px">G.M Garments </p>
-            </div>
-
 
         </div>
     </div>
 </div>
+@if (this.Model.Comments.Any())
+{
+    foreach (var comment in this.Model.Comments)
+    {
+        <div>
+            <partial name="_ProductDetailsComments" model="comment" />
+        </div>
+    }
+}
+
+<form asp-controller="Comments" asp-action="AddComment" id="commentForm" method="post" style="display: none">
+    <div class="form-group">
+        <label>Your comment:</label>
+        <textarea rows="4" class="form-control" name="Content" placeholder="Comment must be at least 5 symbols long"></textarea>
+        <input type="hidden" name="ProductId" value="@this.Model.Id" />
+    </div>
+    <button type="submit" class="btn btn-success"><i class="fas fa-comment"></i> Post comment</button>
+</form>
+
 
 
