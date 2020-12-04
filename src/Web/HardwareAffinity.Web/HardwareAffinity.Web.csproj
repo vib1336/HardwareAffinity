@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -30,9 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\HardwareAffinity.Common\HardwareAffinity.Common.csproj" />
     <ProjectReference Include="..\..\Data\HardwareAffinity.Data.Models\HardwareAffinity.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\HardwareAffinity.Data\HardwareAffinity.Data.csproj" />
+    <ProjectReference Include="..\..\HardwareAffinity.Common\HardwareAffinity.Common.csproj" />
     <ProjectReference Include="..\..\Services\HardwareAffinity.Services.Data\HardwareAffinity.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\HardwareAffinity.Services.Mapping\HardwareAffinity.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\HardwareAffinity.Services.Messaging\HardwareAffinity.Services.Messaging.csproj" />

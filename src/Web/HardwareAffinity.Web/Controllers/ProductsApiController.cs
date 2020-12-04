@@ -8,8 +8,8 @@
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/[controller]")]
     [Authorize]
+    [Route("[controller]/[action]")]
     public class ProductsApiController : ControllerBase
     {
         private readonly IProductsService productsService;
@@ -22,11 +22,19 @@
         [HttpPost]
         public async Task<ActionResult<EditProductReturnInfo>> UpdateProduct(EditProductViewModel inputModel)
         {
-            await this.productsService.UpdateProductAsync(inputModel.Id, inputModel.Title, inputModel.Description);
+            await this.productsService.UpdateProductAsync(inputModel.Id, inputModel.Title, inputModel.Description, inputModel.Price);
 
             var product = await this.productsService.GetProductAsync<EditProductReturnInfo>(inputModel.Id);
 
             return product;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<object>> DeleteProduct(DeleteInputModel inputModel)
+        {
+            var isDeleted = await this.productsService.DeleteProductAsync(inputModel.ProductId);
+
+            return new { isDeleted };
         }
     }
 }

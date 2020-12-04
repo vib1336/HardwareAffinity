@@ -25,6 +25,8 @@
 
         Task<bool> ProductIsDeletedAsync(string id);
 
-        Task UpdateProductAsync(string id, string title, string description);
+        Task UpdateProductAsync(string id, string title, string description, decimal price);
+
+        Task<bool> DeleteProductAsync(string id);
     }
 }

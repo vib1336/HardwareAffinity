@@ -48,6 +48,7 @@ $(function () {
     })
 })
 
+
 // edit product ajax
 
 function editProduct(id) {
@@ -56,11 +57,12 @@ function editProduct(id) {
     var token = $('#editProductForm input[name=__RequestVerificationToken]').val();
     var title = $('#Title').val();
     var description = $('#Description').val();
+    var price = $('#Price').val();
 
-    var json = { id: id, title: title, description: description };
+    var json = { id: id, title: title, description: description, price: price };
 
     $.ajax({
-        url: "/api/productsapi",
+        url: "/productsapi/updateproduct",
         method: "POST",
         data: JSON.stringify(json),
         contentType: "application/json; charset=utf-8",
@@ -68,8 +70,42 @@ function editProduct(id) {
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
             $('#ProductTitle').html(data['title']);
-            $('#ProductDescription').html(data['description']);
+            $('#ProductDescription').html(`<i class="text-success fa fa-check-square-o" aria-hidden="true"></i> <strong>Description</strong> ${data['description']}`);
+            $('#ProductPrice').html(`<i class="fas fa-euro-sign"></i> ${data['price'].toFixed(2)}`);
             placeHolderElement.find('.modal').modal('hide');
         }
     });
+}
+
+// show confirm delete modal
+
+function showConfirmDeleteModal(url, productId, trId) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function (data) {
+            $('#ConfirmDeletePlaceholder').html(data);
+            $('#ConfirmDeletePlaceholder .modal').modal('show');
+            
+            $('#ConfirmDeleteBtn').click(function (event) {
+
+                var token = $('#ConfirmDeletePlaceholder form input[name=__RequestVerificationToken]').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/productsapi/deleteproduct",
+                    data: JSON.stringify({ productId: productId }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    headers: { 'X-CSRF-TOKEN': token },
+                    success: function (res) {
+                        if (res.isDeleted) {
+                            $(`#${trId}`).remove();
+                            $('#ConfirmDeletePlaceholder .modal').modal('hide');
+                        }
+                    }
+                })
+            })
+        }
+    })
 }

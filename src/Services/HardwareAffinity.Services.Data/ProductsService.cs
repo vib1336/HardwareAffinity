@@ -1,5 +1,6 @@
 ﻿namespace HardwareAffinity.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -148,7 +149,7 @@
             .Select(p => p.IsDeleted)
             .FirstOrDefaultAsync();
 
-        public async Task UpdateProductAsync(string id, string title, string description)
+        public async Task UpdateProductAsync(string id, string title, string description, decimal price)
         {
             var product = await this.productsRepository.All().FirstOrDefaultAsync(p => p.Id == id);
 
@@ -159,8 +160,25 @@
 
             product.Title = title;
             product.Description = description;
+            product.Price = price;
 
             await this.productsRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteProductAsync(string id)
+        {
+            var productToDelete = await this.productsRepository.All().FirstOrDefaultAsync(p => p.Id == id);
+
+            if (productToDelete == null)
+            {
+                return false;
+            }
+
+            productToDelete.IsDeleted = true;
+            productToDelete.DeletedOn = DateTime.UtcNow;
+            await this.productsRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

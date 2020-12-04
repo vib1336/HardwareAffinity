@@ -19,5 +19,8 @@
         [Required]
         [StringLength(ProductDescriptionMaxLength, MinimumLength = ProductDescriptionMinLength)]
         public string Description { get; set; }
+
+        [Range(ProductMinPrice, ProductMaxPrice)]
+        public decimal Price { get; set; }
     }
 }

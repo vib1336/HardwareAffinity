@@ -53,7 +53,14 @@
         public async Task<IActionResult> EditProduct(string id)
         {
             var editModel = await this.productsService.GetProductAsync<EditProductViewModel>(id);
+
             return this.PartialView("_EditProductForm", editModel);
+        }
+
+        [Authorize(Roles = AdministratorRoleName)]
+        public IActionResult ConfirmDelete(string id)
+        {
+            return this.PartialView("_ConfirmDelete");
         }
     }
 }

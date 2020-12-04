@@ -5,6 +5,8 @@
 @{
     this.ViewData["Title"] = this.Model.Title;
 }
+<div id="ConfirmDeletePlaceholder"></div>
+
 <div class="float-right">
     <a class="btn btn-info">
         Name
@@ -34,7 +36,8 @@
                 <tbody>
                     @foreach (var product in this.Model.AllTVs)
                     {
-                        <tr>
+                        var trId = Guid.NewGuid().ToString();
+                        <tr id="@trId">
                             <th scope="row" class="w-25">
                                 <img src="@product.MainImageUrl" class="img-fluid img-thumbnail" alt="@product.Title" />
                             </th>
@@ -44,7 +47,9 @@
                             <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a></td>
                             @if (this.User.IsInRole(AdministratorRoleName))
                             {
-                                <td><a class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                                <td><a class="btn btn-danger" onclick="showConfirmDeleteModal('@Url.Action("ConfirmDelete", "Products")', '@product.Id', '@trId')"><i class="fas fa-trash-alt"></i> Delete
+                                    </a>
+                                </td>
                             }
 
                         </tr>
