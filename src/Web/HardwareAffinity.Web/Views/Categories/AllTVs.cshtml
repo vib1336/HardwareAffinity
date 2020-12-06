@@ -8,12 +8,31 @@
 <div id="ConfirmDeletePlaceholder"></div>
 
 <div class="float-right">
-    <a class="btn btn-info">
-        Name
-    </a>
-    <a class="btn btn-info">
-        <i class="fas fa-arrow-up"></i> Price
-    </a>
+    @if (this.Model.AreOrderedByName)
+    {
+        <a asp-controller="Categories" asp-action="OrderByNameDescending" asp-route-page="@this.Model.CurrentPage" asp-route-categoryId="@this.Model.Id" class="btn btn-info">
+            <i class="fas fa-arrow-down"></i> Name
+        </a>
+    }
+    else
+    {
+        <a asp-controller="Categories" asp-action="OrderByName" asp-route-page="@this.Model.CurrentPage" asp-route-categoryId="@this.Model.Id" class="btn btn-info">
+            <i class="fas fa-arrow-up"></i> Name
+        </a>
+    }
+
+    @if (this.Model.AreOrderedByPrice)
+    {
+        <a asp-controller="Categories" asp-action="OrderByPriceDescending" asp-route-page="@this.Model.CurrentPage" asp-route-categoryId="@this.Model.Id" class="btn btn-info">
+            <i class="fas fa-arrow-down"></i> Price
+        </a>
+    }
+    else
+    {
+        <a asp-controller="Categories" asp-action="OrderByPrice" asp-route-page="@this.Model.CurrentPage" asp-route-categoryId="@this.Model.Id" class="btn btn-info">
+            <i class="fas fa-arrow-up"></i> Price
+        </a>
+    }
 </div>
 <div class="clearfix"></div>
 <div class="container-custom">
@@ -34,7 +53,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var product in this.Model.AllTVs)
+                    @foreach (var product in this.Model.AllProducts)
                     {
                         var trId = Guid.NewGuid().ToString();
                         <tr id="@trId">

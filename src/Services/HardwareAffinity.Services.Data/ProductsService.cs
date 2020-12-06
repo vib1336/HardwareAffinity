@@ -180,5 +180,33 @@
 
             return true;
         }
+
+        public async Task<IEnumerable<T>> OrderProductsByPriceAsync<T>(int categoryId)
+            => await this.productsRepository.All()
+            .Where(p => p.CategoryId == categoryId)
+            .OrderBy(p => p.Price)
+            .To<T>()
+            .ToListAsync();
+
+        public async Task<IEnumerable<T>> OrderProductsByPriceDescendingAsync<T>(int categoryId)
+            => await this.productsRepository.All()
+            .Where(p => p.CategoryId == categoryId)
+            .OrderByDescending(p => p.Price)
+            .To<T>()
+            .ToListAsync();
+
+        public async Task<IEnumerable<T>> OrderProductsByNameAsync<T>(int categoryId)
+            => await this.productsRepository.All()
+            .Where(p => p.CategoryId == categoryId)
+            .OrderBy(p => p.Title)
+            .To<T>()
+            .ToListAsync();
+
+        public async Task<IEnumerable<T>> OrderProductsByNameDescendingAsync<T>(int categoryId)
+            => await this.productsRepository.All()
+            .Where(p => p.CategoryId == categoryId)
+            .OrderByDescending(p => p.Title)
+            .To<T>()
+            .ToListAsync();
     }
 }

@@ -6,7 +6,6 @@
     using HardwareAffinity.Services.Data;
     using HardwareAffinity.Web.ViewModels.Categories;
     using HardwareAffinity.Web.ViewModels.Products;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using static HardwareAffinity.Common.GlobalConstants;
@@ -41,13 +40,162 @@
             var categoryViewModel = await this.categoriesService
                 .GetCategoryAsync<CategoryDisplayModel>(TvCategoryId);
 
-            categoryViewModel.AllTVs = await this.productsService
-                .GetProductsForCategoryAsync<AllProductsForCategoryViewModel>(TvCategoryId);
+            categoryViewModel.AllProducts = await this.productsService
+                .OrderProductsByPriceAsync<AllProductsForCategoryViewModel>(TvCategoryId);
+            categoryViewModel.AreOrderedByPrice = true;
 
             categoryViewModel.CurrentPage = page;
             categoryViewModel.MaxPage = maxPage;
 
             return this.View(categoryViewModel);
+        }
+
+        public async Task<IActionResult> OrderByPrice(int page, int categoryId)
+        {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            int totalProducts = await this.productsService.CountProductsFromCategoryAsync(categoryId);
+
+            int maxPage = (int)Math.Ceiling((double)totalProducts / ProductsPerPage);
+
+            if (maxPage == 0)
+            {
+                // empty subcategory
+            }
+
+            var categoryViewModel = await this.categoriesService
+                .GetCategoryAsync<CategoryDisplayModel>(categoryId);
+
+            categoryViewModel.AllProducts = await this.productsService
+                .OrderProductsByPriceAsync<AllProductsForCategoryViewModel>(categoryId);
+            categoryViewModel.AreOrderedByPrice = true;
+
+            categoryViewModel.CurrentPage = page;
+            categoryViewModel.MaxPage = maxPage;
+
+            string viewName = categoryId switch
+            {
+                1 => "AllTVs",
+                2 => "AllSmartphones",
+                3 => "AllAudio",
+                _ => string.Empty,
+            };
+
+            return this.View(viewName, categoryViewModel);
+        }
+
+        public async Task<IActionResult> OrderByPriceDescending(int page, int categoryId)
+        {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            int totalProducts = await this.productsService.CountProductsFromCategoryAsync(categoryId);
+
+            int maxPage = (int)Math.Ceiling((double)totalProducts / ProductsPerPage);
+
+            if (maxPage == 0)
+            {
+                // empty subcategory
+            }
+
+            var categoryViewModel = await this.categoriesService
+                .GetCategoryAsync<CategoryDisplayModel>(categoryId);
+
+            categoryViewModel.AllProducts = await this.productsService
+                .OrderProductsByPriceDescendingAsync<AllProductsForCategoryViewModel>(categoryId);
+            categoryViewModel.AreOrderedByPrice = false;
+
+            categoryViewModel.CurrentPage = page;
+            categoryViewModel.MaxPage = maxPage;
+
+            string viewName = categoryId switch
+            {
+                1 => "AllTVs",
+                2 => "AllSmartphones",
+                3 => "AllAudio",
+                _ => string.Empty,
+            };
+
+            return this.View(viewName, categoryViewModel);
+        }
+
+        public async Task<IActionResult> OrderByName(int page, int categoryId)
+        {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            int totalProducts = await this.productsService.CountProductsFromCategoryAsync(categoryId);
+
+            int maxPage = (int)Math.Ceiling((double)totalProducts / ProductsPerPage);
+
+            if (maxPage == 0)
+            {
+                // empty subcategory
+            }
+
+            var categoryViewModel = await this.categoriesService
+                .GetCategoryAsync<CategoryDisplayModel>(categoryId);
+
+            categoryViewModel.AllProducts = await this.productsService
+                .OrderProductsByNameAsync<AllProductsForCategoryViewModel>(categoryId);
+            categoryViewModel.AreOrderedByName = true;
+
+            categoryViewModel.CurrentPage = page;
+            categoryViewModel.MaxPage = maxPage;
+
+            string viewName = categoryId switch
+            {
+                1 => "AllTVs",
+                2 => "AllSmartphones",
+                3 => "AllAudio",
+                _ => string.Empty,
+            };
+
+            return this.View(viewName, categoryViewModel);
+        }
+
+        public async Task<IActionResult> OrderByNameDescending(int page, int categoryId)
+        {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            int totalProducts = await this.productsService.CountProductsFromCategoryAsync(categoryId);
+
+            int maxPage = (int)Math.Ceiling((double)totalProducts / ProductsPerPage);
+
+            if (maxPage == 0)
+            {
+                // empty subcategory
+            }
+
+            var categoryViewModel = await this.categoriesService
+                .GetCategoryAsync<CategoryDisplayModel>(categoryId);
+
+            categoryViewModel.AllProducts = await this.productsService
+                .OrderProductsByNameDescendingAsync<AllProductsForCategoryViewModel>(categoryId);
+            categoryViewModel.AreOrderedByName = false;
+
+            categoryViewModel.CurrentPage = page;
+            categoryViewModel.MaxPage = maxPage;
+
+            string viewName = categoryId switch
+            {
+                1 => "AllTVs",
+                2 => "AllSmartphones",
+                3 => "AllAudio",
+                _ => string.Empty,
+            };
+
+            return this.View(viewName, categoryViewModel);
         }
     }
 }

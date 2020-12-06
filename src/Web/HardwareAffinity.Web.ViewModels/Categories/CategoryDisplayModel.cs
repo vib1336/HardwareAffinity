@@ -18,6 +18,10 @@
 
         public int MaxPage { get; set; }
 
-        public IEnumerable<AllProductsForCategoryViewModel> AllTVs { get; set; }
+        public bool AreOrderedByPrice { get; set; }
+
+        public bool AreOrderedByName { get; set; }
+
+        public IEnumerable<AllProductsForCategoryViewModel> AllProducts { get; set; }
     }
 }

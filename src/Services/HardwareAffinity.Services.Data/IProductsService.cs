@@ -28,5 +28,13 @@
         Task UpdateProductAsync(string id, string title, string description, decimal price);
 
         Task<bool> DeleteProductAsync(string id);
+
+        Task<IEnumerable<T>> OrderProductsByPriceAsync<T>(int categoryId);
+
+        Task<IEnumerable<T>> OrderProductsByPriceDescendingAsync<T>(int categoryId);
+
+        Task<IEnumerable<T>> OrderProductsByNameAsync<T>(int categoryId);
+
+        Task<IEnumerable<T>> OrderProductsByNameDescendingAsync<T>(int categoryId);
     }
 }
