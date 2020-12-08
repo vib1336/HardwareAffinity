@@ -37,7 +37,8 @@
 
             if (product == null)
             {
-                // error 404
+                this.Response.StatusCode = 404;
+                return this.View("ProductNotFound");
             }
 
             product.Images = (IList<ImageInfoModel>)await this.imagesService.GetProductImagesAsync<ImageInfoModel>(id);

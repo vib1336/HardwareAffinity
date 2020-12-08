@@ -78,6 +78,7 @@
             return this.View(productOrdering.ViewName, productOrdering.CategoryViewModel);
         }
 
+        // helper method with common logic
         private async Task<(string ViewName, CategoryDisplayModel CategoryViewModel)> ProductsOrdering(
             int page,
             int categoryId,
