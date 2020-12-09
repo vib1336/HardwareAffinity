@@ -29,7 +29,7 @@ function showCommentBox() {
 $(document).ready(function () {
     setTimeout(function () {
         $('#tempData').hide();
-    }, 3000);
+    }, 4000);
 });
 
 // show modal pop-up

@@ -208,5 +208,12 @@
             .OrderByDescending(p => p.Title)
             .To<T>()
             .ToListAsync();
+
+        public async Task<IEnumerable<T>> SearchProductsAsync<T>(string query)
+            => await this.productsRepository.All()
+            .Where(p => p.Title.ToLower().Contains(query.ToLower())
+            || p.Description.ToLower().Contains(query.ToLower()))
+            .To<T>()
+            .ToListAsync();
     }
 }

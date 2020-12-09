@@ -41,5 +41,9 @@
         public const string UnexistentProduct = "Unexistent product cannot be modified.";
 
         public const string InvalidProductModel = "Input product model is not valid.";
+
+        public const int PagesToShow = 3;
+
+        public const string NoResultsFound = "No results were found.";
     }
 }

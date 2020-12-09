@@ -1,0 +1,40 @@
+﻿@model IEnumerable<HardwareAffinity.Web.ViewModels.Products.AllProductsForCategoryViewModel>
+
+@{
+    this.ViewData["Title"] = "Search results";
+}
+
+<div class="container-custom">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-image">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">View</th>
+                    </tr>
+                </thead>
+                @if (this.Model.Any())
+                {
+                    <tbody>
+                        @foreach (var product in this.Model)
+                        {
+                            <tr>
+                                <th scope="row" class="w-25">
+                                    <img src="@product.MainImageUrl" class="img-fluid img-thumbnail" alt="@product.Title" />
+                                </th>
+                                <td>@product.Title</td>
+                                <td>@product.ShortDescription</td>
+                                <td>€ @product.Price</td>
+                                <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+</div>

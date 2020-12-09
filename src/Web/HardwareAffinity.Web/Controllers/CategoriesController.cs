@@ -44,6 +44,7 @@
                 .OrderProductsByPriceAsync<AllProductsForCategoryViewModel>(TvCategoryId);
             categoryViewModel.AreOrderedByPrice = true;
 
+            categoryViewModel.Total = totalTVs;
             categoryViewModel.CurrentPage = page;
             categoryViewModel.MaxPage = maxPage;
 
@@ -137,6 +138,7 @@
                 }
             }
 
+            categoryViewModel.Total = totalProducts;
             categoryViewModel.CurrentPage = page;
             categoryViewModel.MaxPage = maxPage;
 
