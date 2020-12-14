@@ -1,0 +1,44 @@
+﻿@model IEnumerable<HardwareAffinity.Web.ViewModels.Carts.CartProductViewModel>
+@using System.Security.Claims
+
+@{
+    var userName = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+    this.ViewData["Title"] = $"{userName}'s cart";
+}
+
+@if (this.Model.Count() == 0)
+{
+    <h1>No products</h1>
+}
+else
+{
+    <div class="container-custom">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-image">
+                    <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in this.Model)
+                        {
+                            <tr>
+                                <th scope="row" class="w-25">
+                                    <img src="@product.MainImageUrl" class="img-fluid img-thumbnail" alt="@product.Title" />
+                                </th>
+                                <td>@product.Title</td>
+                                <td>@product.ShortDescription</td>
+                                <td>€ @product.Price</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

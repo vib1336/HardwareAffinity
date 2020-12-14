@@ -23,18 +23,23 @@
 
         public async Task<IActionResult> AllTVs(int page = 1)
         {
-            if (page <= 0)
-            {
-                page = 1;
-            }
-
             int totalTVs = await this.productsService.CountProductsFromCategoryAsync(TvCategoryId);
 
             int maxPage = (int)Math.Ceiling((double)totalTVs / ProductsPerPage);
 
             if (maxPage == 0)
             {
-                // empty subcategory
+                // empty subcategory view
+            }
+
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            if (page > maxPage)
+            {
+                page = maxPage;
             }
 
             var categoryViewModel = await this.categoriesService
@@ -79,7 +84,7 @@
             return this.View(productOrdering.ViewName, productOrdering.CategoryViewModel);
         }
 
-        // helper method with common logic
+        // helper method with common sorting logic
         private async Task<(string ViewName, CategoryDisplayModel CategoryViewModel)> ProductsOrdering(
             int page,
             int categoryId,

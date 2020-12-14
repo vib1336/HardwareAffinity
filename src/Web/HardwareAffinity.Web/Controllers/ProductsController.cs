@@ -46,6 +46,7 @@
 
             var voteInfo = await this.votesService.GetAverageRateAsync(id);
             product.AverageRate = voteInfo.Average;
+            product.CountVotes = voteInfo.Count;
 
             return this.View(product);
         }

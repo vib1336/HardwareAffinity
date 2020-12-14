@@ -45,5 +45,9 @@
         public const int PagesToShow = 3;
 
         public const string NoResultsFound = "No results were found.";
+
+        public const string ProductDoesNotExist = "This product does not exist.";
+
+        public const string ProductSuccessfullyAdded = "Product successfully added to cart.";
     }
 }

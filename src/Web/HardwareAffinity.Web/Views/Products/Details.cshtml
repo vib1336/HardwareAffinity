@@ -46,7 +46,7 @@
                     </h3>
                 }
                 &nbsp; &nbsp;
-                <h5 id="votesInfo">@this.Model.AverageRate / 5</h5>
+                <h5 id="votesInfo">@this.Model.AverageRate.ToString("F2") / @this.Model.CountVotes votes</h5>
             </div>
             <div class="row">
                 <p id="ProductDescription"><i class="text-success fa fa-check-square-o" aria-hidden="true"></i> <strong>Description</strong> @this.Model.Description</p>
@@ -58,7 +58,10 @@
             <div class="row mt-4">
                 <h4>Buy: &nbsp; &nbsp;</h4>
                 <div class="buy-button">
-                    <a class="btn btn-danger" href="#"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                    <a class="btn btn-danger" asp-controller="Carts" asp-action="AddToCart" asp-route-productId="@this.Model.Id">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to cart
+                    </a>
                     <button type="button" class="btn btn-primary" onclick="showCommentBox()">
                         <i class="fas fa-comment"></i> Comment
                     </button>

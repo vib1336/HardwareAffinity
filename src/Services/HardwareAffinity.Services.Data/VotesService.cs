@@ -54,7 +54,7 @@
                 .Where(v => v.ProductId == productId)
                 .SumAsync(v => (int)v.VoteType);
 
-            var average = (double)(sumVotes / countVotes);
+            var average = (double)sumVotes / countVotes;
 
             return (average, countVotes);
         }

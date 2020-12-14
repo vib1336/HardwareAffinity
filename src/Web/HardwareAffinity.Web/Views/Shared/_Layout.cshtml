@@ -24,9 +24,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Cart</a>
-                        </li>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Carts" asp-action="MyCart">Cart</a>
+                            </li>
+                        }
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Categories
@@ -44,7 +47,7 @@
                                 <div class="input-group">
                                     <input name="query" class="form-control" placeholder="Search product..." />
                                     <div class="input-group-append">
-                                        <input type="submit" value="Search" class="btn btn-info" />
+                                        <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </form>

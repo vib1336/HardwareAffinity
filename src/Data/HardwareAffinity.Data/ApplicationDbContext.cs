@@ -36,6 +36,10 @@
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<CartProduct> CartProducts { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -57,6 +61,17 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // Set many-to-many
+            builder.Entity<CartProduct>(entity =>
+            {
+                entity.HasKey(x => new { x.CartId, x.ProductId });
+            });
+
+            builder.Entity<ApplicationUser>()
+                .HasOne(u => u.Cart)
+                .WithOne(c => c.User)
+                .HasForeignKey<Cart>(c => c.UserId);
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

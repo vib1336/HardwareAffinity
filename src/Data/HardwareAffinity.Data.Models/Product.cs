@@ -16,6 +16,7 @@
             this.Images = new HashSet<Image>();
             this.Votes = new HashSet<Vote>();
             this.Comments = new HashSet<Comment>();
+            this.CartProducts = new HashSet<CartProduct>();
         }
 
         [Required]
@@ -46,5 +47,7 @@
         public virtual ICollection<Vote> Votes { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<CartProduct> CartProducts { get; set; }
     }
 }

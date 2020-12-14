@@ -12,7 +12,8 @@ function sendVote(productId, rate) {
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
             var average = data['average'];
-            $('#votesInfo').html(`${average} / 5`);
+            var votesCount = data['count'];
+            $('#votesInfo').html(`${average.toFixed(2)} / ${votesCount} votes`);
         }
     });
 }
@@ -29,7 +30,7 @@ function showCommentBox() {
 $(document).ready(function () {
     setTimeout(function () {
         $('#tempData').hide();
-    }, 4000);
+    }, 3000);
 });
 
 // show modal pop-up
