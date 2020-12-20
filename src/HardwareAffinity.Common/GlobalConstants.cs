@@ -26,8 +26,6 @@
 
         public const double ProductMaxPrice = 100000;
 
-        public const int TvCategoryId = 1;
-
         public const int ProductsPerPage = 10;
 
         public const int CommentMaxLength = 400;
@@ -49,5 +47,9 @@
         public const string ProductDoesNotExist = "This product does not exist.";
 
         public const string ProductSuccessfullyAdded = "Product successfully added to cart.";
+
+        public const string ProductPosted = "Product was successfully added to {0} category.";
+
+        public const string CategoriesView = "All";
     }
 }

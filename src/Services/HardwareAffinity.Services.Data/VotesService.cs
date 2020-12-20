@@ -58,5 +58,15 @@
 
             return (average, countVotes);
         }
+
+        public async Task<bool> HasUserVotedAsync(string productId, string userId)
+        {
+            if (userId == null)
+            {
+                return true;
+            }
+
+            return await this.votesRepository.All().AnyAsync(v => v.ProductId == productId && v.UserId == userId);
+        }
     }
 }

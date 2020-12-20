@@ -40,9 +40,7 @@
                         _ => "NoRate",
                     };
                     <h3 class="text-warning">
-                        <a href="#" title="@rate" onclick="sendVote('@this.Model.Id', @i)">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </a>
+                        <custom-link stars-class="@this.Model.StarsClass" stars-title="@rate" onclick="sendVote('@this.Model.Id', @i)"></custom-link>
                     </h3>
                 }
                 &nbsp; &nbsp;

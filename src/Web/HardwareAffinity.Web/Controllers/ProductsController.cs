@@ -1,6 +1,8 @@
 ﻿namespace HardwareAffinity.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using HardwareAffinity.Services.Data;
@@ -41,12 +43,17 @@
                 return this.View("ProductNotFound");
             }
 
+            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             product.Images = (IList<ImageInfoModel>)await this.imagesService.GetProductImagesAsync<ImageInfoModel>(id);
             product.Comments = await this.commentsService.GetProductCommentsAsync<CommentInfoModel>(id);
 
             var voteInfo = await this.votesService.GetAverageRateAsync(id);
             product.AverageRate = voteInfo.Average;
             product.CountVotes = voteInfo.Count;
+
+            product.StarsClass = await this.votesService.HasUserVotedAsync(id, userId)
+                ? "disabled-stars"
+                : "active-stars";
 
             return this.View(product);
         }

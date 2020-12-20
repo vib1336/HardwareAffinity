@@ -21,15 +21,15 @@
             this.productsService = productsService;
         }
 
-        public async Task<IActionResult> AllTVs(int page = 1)
+        public async Task<IActionResult> All(int categoryId, int page = 1)
         {
-            int totalTVs = await this.productsService.CountProductsFromCategoryAsync(TvCategoryId);
+            int totalCategoryProducts = await this.productsService.CountProductsFromCategoryAsync(categoryId);
 
-            int maxPage = (int)Math.Ceiling((double)totalTVs / ProductsPerPage);
+            int maxPage = (int)Math.Ceiling((double)totalCategoryProducts / ProductsPerPage);
 
             if (maxPage == 0)
             {
-                // empty subcategory view
+                return this.View("EmptyCategory");
             }
 
             if (page <= 0)
@@ -43,13 +43,13 @@
             }
 
             var categoryViewModel = await this.categoriesService
-                .GetCategoryAsync<CategoryDisplayModel>(TvCategoryId);
+                .GetCategoryAsync<CategoryDisplayModel>(categoryId);
 
             categoryViewModel.AllProducts = await this.productsService
-                .OrderProductsByPriceAsync<AllProductsForCategoryViewModel>(TvCategoryId);
+                .OrderProductsByPriceAsync<AllProductsForCategoryViewModel>(categoryId);
             categoryViewModel.AreOrderedByPrice = true;
 
-            categoryViewModel.Total = totalTVs;
+            categoryViewModel.Total = totalCategoryProducts;
             categoryViewModel.CurrentPage = page;
             categoryViewModel.MaxPage = maxPage;
 
@@ -60,12 +60,22 @@
         {
             var productOrdering = await this.ProductsOrdering(page, categoryId, isOrderAscending: true, orderByPrice: true);
 
+            if (productOrdering.IsCategoryEmpty)
+            {
+                return this.View("EmptyCategory");
+            }
+
             return this.View(productOrdering.ViewName, productOrdering.CategoryViewModel);
         }
 
         public async Task<IActionResult> OrderByPriceDescending(int page, int categoryId)
         {
             var productOrdering = await this.ProductsOrdering(page, categoryId, isOrderAscending: false, orderByPrice: true);
+
+            if (productOrdering.IsCategoryEmpty)
+            {
+                return this.View("EmptyCategory");
+            }
 
             return this.View(productOrdering.ViewName, productOrdering.CategoryViewModel);
         }
@@ -74,6 +84,11 @@
         {
             var productOrdering = await this.ProductsOrdering(page, categoryId, isOrderAscending: true, orderByPrice: false);
 
+            if (productOrdering.IsCategoryEmpty)
+            {
+                return this.View("EmptyCategory");
+            }
+
             return this.View(productOrdering.ViewName, productOrdering.CategoryViewModel);
         }
 
@@ -81,11 +96,16 @@
         {
             var productOrdering = await this.ProductsOrdering(page, categoryId, isOrderAscending: false, orderByPrice: false);
 
+            if (productOrdering.IsCategoryEmpty)
+            {
+                return this.View("EmptyCategory");
+            }
+
             return this.View(productOrdering.ViewName, productOrdering.CategoryViewModel);
         }
 
         // helper method with common sorting logic
-        private async Task<(string ViewName, CategoryDisplayModel CategoryViewModel)> ProductsOrdering(
+        private async Task<(string ViewName, CategoryDisplayModel CategoryViewModel, bool IsCategoryEmpty)> ProductsOrdering(
             int page,
             int categoryId,
             bool isOrderAscending,
@@ -102,7 +122,7 @@
 
             if (maxPage == 0)
             {
-                // empty subcategory
+                return (string.Empty, null, true);
             }
 
             var categoryViewModel = await this.categoriesService
@@ -147,15 +167,7 @@
             categoryViewModel.CurrentPage = page;
             categoryViewModel.MaxPage = maxPage;
 
-            string viewName = categoryId switch
-            {
-                1 => "AllTVs",
-                2 => "AllSmartphones",
-                3 => "AllAudio",
-                _ => string.Empty,
-            };
-
-            return (viewName, categoryViewModel);
+            return (CategoriesView, categoryViewModel, false);
         }
     }
 }

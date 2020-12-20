@@ -9,6 +9,8 @@
     using HardwareAffinity.Web.ViewModels.Products;
     using Microsoft.AspNetCore.Mvc;
 
+    using static HardwareAffinity.Common.GlobalConstants;
+
     public class DashboardController : AdministrationController
     {
         private readonly ICategoriesService categoriesService;
@@ -41,6 +43,8 @@
 
             var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
+            var categoryName = await this.categoriesService.GetCategoryNameAsync(inputModel.CategoryId);
+
             var productId = await this.productsService.CreateProductAsync(
                 inputModel.Title,
                 inputModel.Description,
@@ -48,6 +52,8 @@
                 inputModel.CategoryId,
                 userId,
                 inputModel.Images);
+
+            this.TempData["InfoMessage"] = string.Format(ProductPosted, categoryName);
 
             return this.Redirect("/");
         }

@@ -27,7 +27,10 @@
                         @if (this.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Carts" asp-action="MyCart">Cart</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Carts" asp-action="MyCart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Cart
+                                </a>
                             </li>
                         }
                         <li class="nav-item dropdown">
@@ -35,9 +38,9 @@
                                 Categories
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Categories" asp-action="AllTVs">TV</a>
-                                <a class="dropdown-item" href="#">Smartphones</a>
-                                <a class="dropdown-item" href="#">Audio</a>
+                                <a class="dropdown-item" asp-controller="Categories" asp-action="All" asp-route-categoryId="1">TV</a>
+                                <a class="dropdown-item" asp-controller="Categories" asp-action="All" asp-route-categoryId="2">Smartphones</a>
+                                <a class="dropdown-item" asp-controller="Categories" asp-action="All" asp-route-categoryId="3">Audio</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>

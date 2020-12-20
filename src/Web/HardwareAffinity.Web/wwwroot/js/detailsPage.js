@@ -11,6 +11,14 @@ function sendVote(productId, rate) {
         dataType: "json",
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
+            if (!data['hasUserVoted']) {
+                alert('Thank you for your vote.');
+                let stars = document.getElementsByClassName('active-stars');
+                for (const el of stars) {
+                    el.removeAttribute('class'); // doesn't work correctly on all <a> star elements
+                    el.setAttribute('class', 'disabled-stars');
+                }
+            }
             var average = data['average'];
             var votesCount = data['count'];
             $('#votesInfo').html(`${average.toFixed(2)} / ${votesCount} votes`);

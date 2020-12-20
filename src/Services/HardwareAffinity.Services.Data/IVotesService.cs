@@ -7,5 +7,7 @@
         Task AddVoteAsync(string productId, int rate, string userId);
 
         Task<(double Average, int Count)> GetAverageRateAsync(string productId);
+
+        Task<bool> HasUserVotedAsync(string productId, string userId);
     }
 }

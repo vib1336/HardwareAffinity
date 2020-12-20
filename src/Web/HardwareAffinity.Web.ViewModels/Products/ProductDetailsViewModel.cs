@@ -21,6 +21,8 @@
 
         public int CountVotes { get; set; }
 
+        public string StarsClass { get; set; }
+
         public IList<ImageInfoModel> Images { get; set; }
 
         public IEnumerable<CommentInfoModel> Comments { get; set; }

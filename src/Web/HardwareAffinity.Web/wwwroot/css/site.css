@@ -2,6 +2,13 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 /*Custom CSS*/
+.disabled-stars{
+    pointer-events:none;
+    color:gray;
+}
+.active-stars{
+    cursor:pointer;
+}
 
 .container-custom {
     padding: 2rem 0rem;

@@ -24,5 +24,11 @@
             .Where(c => c.Id == id)
             .To<T>()
             .FirstOrDefaultAsync();
+
+        public async Task<string> GetCategoryNameAsync(int id)
+            => await this.categoriesRepository.All()
+            .Where(c => c.Id == id)
+            .Select(c => c.Title)
+            .FirstOrDefaultAsync();
     }
 }

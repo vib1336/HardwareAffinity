@@ -24,6 +24,8 @@
         {
             var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
+            var hasUserVoted = await this.votesService.HasUserVotedAsync(inputModel.ProductId, userId);
+
             await this.votesService.AddVoteAsync(inputModel.ProductId, inputModel.Rate, userId);
 
             var voteInfo = await this.votesService.GetAverageRateAsync(inputModel.ProductId);
@@ -32,6 +34,7 @@
             {
                 Average = voteInfo.Average,
                 Count = voteInfo.Count,
+                HasUserVoted = hasUserVoted,
             };
         }
     }

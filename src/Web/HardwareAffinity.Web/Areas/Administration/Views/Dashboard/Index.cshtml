@@ -3,43 +3,47 @@
     this.ViewData["Title"] = "Admin dashboard";
 }
 
-    <form asp-controller="Dashboard" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label asp-for="Title"></label>
-            <input asp-for="Title" class="form-control" placeholder="Product title" />
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
+<form asp-controller="Dashboard" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" placeholder="Product title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
 
-        <div class="form-group">
-            <label asp-for="Description"></label>
-            <textarea asp-for="Description" class="form-control" placeholder="Description" rows="5"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" placeholder="Description" rows="5"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
 
-        <div class="form-group">
-            <label asp-for="Price"></label>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">€</div>
+            </div>
             <input asp-for="Price" class="form-control" placeholder="Price" />
-            <span asp-validation-for="Price" class="text-danger"></span>
         </div>
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
 
-        <div class="form-group">
-            <label>Select a category</label>
-            <select class="form-control" name="CategoryId">
-                <option disabled selected value=""></option>
-                @foreach (var category in this.Model.Categories)
-                {
-                    <option value="@category.Id">@category.Title</option>
-                }
+    <div class="form-group">
+        <label>Select a category</label>
+        <select class="form-control" name="CategoryId">
+            <option disabled selected value=""></option>
+            @foreach (var category in this.Model.Categories)
+            {
+                <option value="@category.Id">@category.Title</option>
+            }
+        </select>
+    </div>
 
-            </select>
-        </div>
+    <div class="form-group">
+        <label>Images</label>
+        <br />
+        <input type="file" name="Images" multiple />
+    </div>
 
-        <div class="form-group">
-            <label>Images</label>
-            <br />
-            <input type="file" name="Images" multiple />
-        </div>
+    <input type="submit" value="Create product" class="btn btn-success btn-block" />
 
-        <input type="submit" value="Create product" class="btn btn-success" />
-
-    </form>
+</form>
