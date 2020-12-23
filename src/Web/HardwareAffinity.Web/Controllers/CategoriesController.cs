@@ -6,6 +6,7 @@
     using HardwareAffinity.Services.Data;
     using HardwareAffinity.Web.ViewModels.Categories;
     using HardwareAffinity.Web.ViewModels.Products;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using static HardwareAffinity.Common.GlobalConstants;
@@ -19,6 +20,27 @@
         {
             this.categoriesService = categoriesService;
             this.productsService = productsService;
+        }
+
+        [Authorize(Roles = AdministratorRoleName)]
+        public IActionResult AddCategory()
+        {
+            return this.View(new CreateCategoryInputModel());
+        }
+
+        [Authorize(Roles = AdministratorRoleName)]
+        [HttpPost]
+        public async Task<IActionResult> AddCategory(CreateCategoryInputModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
+            await this.categoriesService.CreateCategoryAsync(inputModel.Title, inputModel.Description);
+
+            this.TempData["InfoMessage2"] = SuccessfullyAddedCategory;
+            return this.Redirect("/");
         }
 
         public async Task<IActionResult> All(int categoryId, int page = 1)

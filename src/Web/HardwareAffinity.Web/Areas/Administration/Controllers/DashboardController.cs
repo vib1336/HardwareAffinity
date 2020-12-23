@@ -53,7 +53,7 @@
                 userId,
                 inputModel.Images);
 
-            this.TempData["InfoMessage"] = string.Format(ProductPosted, categoryName);
+            this.TempData["InfoMessage2"] = string.Format(ProductPosted, categoryName);
 
             return this.Redirect("/");
         }

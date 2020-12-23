@@ -12,6 +12,9 @@
 }
 else
 {
+    <div class="float-right">
+        <b>You have @this.Model.Count() products in your cart. Total amount: € @this.Model.Sum(p => p.Price)</b>
+    </div>
     <div class="container-custom">
         <div class="row">
             <div class="col-12">

@@ -1,19 +1,19 @@
-﻿@using HardwareAffinity.Common
+﻿@using static HardwareAffinity.Common.GlobalConstants
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <title>@this.ViewData["Title"] - @SystemName</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@SystemName</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,13 +21,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        @if (this.User.IsInRole(AdministratorRoleName))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="AddCategory">Add category</a>
+                            </li>
+                        }
                         @if (this.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Carts" asp-action="MyCart">
+                                <a class="nav-link" asp-area="" asp-controller="Carts" asp-action="MyCart">
                                     <i class="fas fa-shopping-cart"></i>
                                     Cart
                                 </a>
@@ -60,6 +63,12 @@
             </div>
         </nav>
     </header>
+    @if (this.TempData["InfoMessage2"] != null)
+    {
+        <div id="tempData-success" class="alert alert-success text-center">
+            @this.TempData["InfoMessage2"]
+        </div>
+    }
     @if (this.TempData["InfoMessage"] != null)
     {
         <div id="tempData" class="alert alert-danger text-center">
@@ -73,9 +82,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-dark">
         <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - @SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a target="_blank" href="https://github.com/vib1336/HardwareAffinity" class="float-right">
+                <i class="fab fa-github"></i>
+                Open Source
+            </a>
         </div>
     </footer>
 

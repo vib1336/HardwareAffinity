@@ -41,6 +41,12 @@ $(document).ready(function () {
     }, 3000);
 });
 
+$(document).ready(function () {
+    setTimeout(function () {
+        $('#tempData-success').hide();
+    }, 3000);
+});
+
 // show modal pop-up
 
 $(function () {

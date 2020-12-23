@@ -16,6 +16,18 @@
         public CategoriesService(IRepository<Category> categoriesRepository)
             => this.categoriesRepository = categoriesRepository;
 
+        public async Task CreateCategoryAsync(string title, string description)
+        {
+            var category = new Category
+            {
+                Title = title,
+                Description = description,
+            };
+
+            await this.categoriesRepository.AddAsync(category);
+            await this.categoriesRepository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<T>> GetAllCategoriesAsync<T>()
             => await this.categoriesRepository.All().To<T>().ToListAsync();
 

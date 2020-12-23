@@ -51,5 +51,7 @@
         public const string ProductPosted = "Product was successfully added to {0} category.";
 
         public const string CategoriesView = "All";
+
+        public const string SuccessfullyAddedCategory = "Category was successfully added.";
     }
 }

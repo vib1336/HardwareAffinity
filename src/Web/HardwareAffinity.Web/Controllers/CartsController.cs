@@ -40,7 +40,7 @@
 
             await this.cartsService.AddProductToCartAsync(productId, cartId);
 
-            this.TempData["InfoMessage"] = ProductSuccessfullyAdded;
+            this.TempData["InfoMessage2"] = ProductSuccessfullyAdded;
             return this.RedirectToAction("Details", "Products", new { id = productId });
         }
 
