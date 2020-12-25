@@ -8,12 +8,12 @@
 
 @if (this.Model.Count() == 0)
 {
-    <h1>No products</h1>
+    <h1 class="text-center">There are no products in your cart @userName!</h1>
 }
 else
 {
     <div class="float-right">
-        <b>You have @this.Model.Count() products in your cart. Total amount: € @this.Model.Sum(p => p.Price)</b>
+        <b>@userName you have @this.Model.Count() products in your cart. Total amount: € @this.Model.Sum(p => p.Price)</b>
     </div>
     <div class="container-custom">
         <div class="row">
