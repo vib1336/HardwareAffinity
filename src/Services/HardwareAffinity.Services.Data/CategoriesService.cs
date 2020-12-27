@@ -18,6 +18,13 @@
 
         public async Task CreateCategoryAsync(string title, string description)
         {
+            var exists = this.categoriesRepository.All().Any(c => c.Title.ToLower() == title.ToLower());
+
+            if (exists)
+            {
+                return;
+            }
+
             var category = new Category
             {
                 Title = title,

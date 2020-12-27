@@ -15,9 +15,7 @@
         private readonly IProductsService productsService;
 
         public ProductsApiController(IProductsService productsService)
-        {
-            this.productsService = productsService;
-        }
+            => this.productsService = productsService;
 
         [HttpPost]
         public async Task<ActionResult<EditProductReturnInfo>> UpdateProduct(EditProductViewModel inputModel)
