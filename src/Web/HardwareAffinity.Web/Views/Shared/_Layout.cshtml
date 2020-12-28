@@ -21,14 +21,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        @if (this.User.IsInRole(AdministratorRoleName))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="AddCategory">Add category</a>
-                            </li>
-                        }
                         @if (this.User.Identity.IsAuthenticated)
                         {
+                            if (this.User.IsInRole(AdministratorRoleName))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="AddCategory">Add category</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Carts" asp-action="MyCart">
                                     <i class="fas fa-shopping-cart"></i>
@@ -51,7 +51,7 @@
                         <li>
                             <form asp-controller="Search" asp-action="SearchProducts" method="get">
                                 <div class="input-group">
-                                    <input name="query" class="form-control" placeholder="Search product..." />
+                                    <input name="query" class="form-control search-field" placeholder="Search product..." />
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
                                     </div>

@@ -28,8 +28,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                this.TempData["InfoMessage"] = InvalidComment;
-                return this.Redirect("/");
+                return this.View("_PostCommentForm", inputModel);
             }
 
             var productExists = await this.productsService.ProductExistsAsync(inputModel.ProductId);
@@ -44,6 +43,8 @@
             var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
             await this.commentsService.AddCommentAsync(inputModel.Content, inputModel.ProductId, userId);
+
+            this.TempData["InfoMessage2"] = PostComment;
 
             return this.RedirectToAction("Details", "Products", new { id = inputModel.ProductId });
         }

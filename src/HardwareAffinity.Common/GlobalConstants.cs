@@ -34,7 +34,7 @@
 
         public const string ErrorMessage = "Cannot post comment for this product.";
 
-        public const string InvalidComment = "Invalid comment.";
+        public const string PostComment = "Comment was successfully added.";
 
         public const string UnexistentProduct = "Unexistent product cannot be modified.";
 

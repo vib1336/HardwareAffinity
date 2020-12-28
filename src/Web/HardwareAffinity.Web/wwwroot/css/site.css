@@ -2,6 +2,7 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 /*Custom CSS*/
+
 /*overwrite bootstrap classes*/
 .navbar-light .navbar-brand {
     color: rgb(146, 146, 146);
@@ -11,12 +12,19 @@ for details on configuring this project to bundle and minify static web assets. 
     color: rgba(146, 146, 146, 45);
 }
 /*overwrite bootstrap classes*/
+
 .disabled-stars{
     pointer-events:none;
     color:gray;
 }
 .active-stars{
     cursor:pointer;
+}
+
+.search-field {
+    background-color: #343a40;
+    color: #929292;
+    border: 2px solid grey;
 }
 
 .container-custom {

@@ -50,6 +50,8 @@
             var voteInfo = await this.votesService.GetAverageRateAsync(id);
             product.AverageRate = voteInfo.Average;
             product.CountVotes = voteInfo.Count;
+            product.Comment = new CommentInputModel();
+            product.Comment.ProductId = id;
 
             product.StarsClass = await this.votesService.HasUserVotedAsync(id, userId)
                 ? "disabled-stars"

@@ -1,0 +1,11 @@
+﻿@model HardwareAffinity.Web.ViewModels.Comments.CommentInputModel
+
+<form asp-controller="Comments" asp-action="AddComment" id="commentForm" method="post" style="display: none">
+    <div class="form-group">
+        <label>Your comment:</label>
+        <textarea rows="4" class="form-control" asp-for="@this.Model.Content" placeholder="Comment must be at least 5 symbols long"></textarea>
+        <span asp-validation-for="@this.Model.Content" class="text-danger"></span>
+        <input type="hidden" name="ProductId" value="@this.Model.ProductId" />
+    </div>
+    <button type="submit" class="btn btn-success"><i class="fas fa-comment"></i> Post comment</button>
+</form>

@@ -23,6 +23,8 @@
 
         public string StarsClass { get; set; }
 
+        public CommentInputModel Comment { get; set; }
+
         public IList<ImageInfoModel> Images { get; set; }
 
         public IEnumerable<CommentInfoModel> Comments { get; set; }
