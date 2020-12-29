@@ -13,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@SystemName</a>
+                <a class="navbar-brand home-logo" asp-area="" asp-controller="Home" asp-action="Index">HA</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,12 +23,6 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (this.User.Identity.IsAuthenticated)
                         {
-                            if (this.User.IsInRole(AdministratorRoleName))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="AddCategory">Add category</a>
-                                </li>
-                            }
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Carts" asp-action="MyCart">
                                     <i class="fas fa-shopping-cart"></i>
@@ -51,7 +45,7 @@
                         <li>
                             <form asp-controller="Search" asp-action="SearchProducts" method="get">
                                 <div class="input-group">
-                                    <input name="query" class="form-control search-field" placeholder="Search product..." />
+                                    <input name="query" class="form-control search-field" placeholder="Product title..." />
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
                                     </div>
