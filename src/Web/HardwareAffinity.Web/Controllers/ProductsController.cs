@@ -20,17 +20,20 @@
         private readonly IIMagesService imagesService;
         private readonly IVotesService votesService;
         private readonly ICommentsService commentsService;
+        private readonly IFavoritesService favoritesService;
 
         public ProductsController(
             IProductsService productsService,
             IIMagesService imagesService,
             IVotesService votesService,
-            ICommentsService commentsService)
+            ICommentsService commentsService,
+            IFavoritesService favoritesService)
         {
             this.productsService = productsService;
             this.imagesService = imagesService;
             this.votesService = votesService;
             this.commentsService = commentsService;
+            this.favoritesService = favoritesService;
         }
 
         public async Task<IActionResult> Details(string id)
@@ -56,6 +59,10 @@
             product.StarsClass = await this.votesService.HasUserVotedAsync(id, userId)
                 ? "disabled-stars"
                 : "active-stars";
+
+            var favoriteId = await this.favoritesService.CreateFavoriteAsync(userId);
+            product.IsAddedToFavorites = await
+                this.favoritesService.CheckIfFavoriteIsAddedAsync(id, favoriteId) ? true : false;
 
             return this.View(product);
         }

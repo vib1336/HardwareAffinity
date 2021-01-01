@@ -53,8 +53,13 @@
                 <p id="ProductDescription"><i class="text-success fa fa-check-square-o" aria-hidden="true"></i> <strong>Description</strong> @this.Model.Description</p>
             </div>
             <div class="row mt-4">
-                <h3 class="text-info"><i class="fa fa-map-marker" aria-hidden="true"></i></h3>
-                <p style="font-size: 20px"> &nbsp; Delivery by23 Jul, Tuesday | &nbsp; <span class="text-success">FREE</span> </p>
+                @if (!this.Model.IsAddedToFavorites)
+                {
+                    <a asp-controller="Favorites" asp-action="AddToFavorites" asp-route-id="@this.Model.Id">
+                        <h3 class="text-info"><i class="fas fa-heart"></i></h3>
+                    </a>
+                    <p style="font-size: 20px"> &nbsp; Add product to favorites</p>
+                }
             </div>
             <div class="row mt-4">
                 <h4>Buy: &nbsp; &nbsp;</h4>

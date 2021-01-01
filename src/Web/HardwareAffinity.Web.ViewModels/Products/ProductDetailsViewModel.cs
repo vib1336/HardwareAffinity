@@ -23,6 +23,8 @@
 
         public string StarsClass { get; set; }
 
+        public bool IsAddedToFavorites { get; set; }
+
         public CommentInputModel Comment { get; set; }
 
         public IList<ImageInfoModel> Images { get; set; }

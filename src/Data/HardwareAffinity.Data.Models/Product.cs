@@ -17,6 +17,7 @@
             this.Votes = new HashSet<Vote>();
             this.Comments = new HashSet<Comment>();
             this.CartProducts = new HashSet<CartProduct>();
+            this.FavoriteProducts = new HashSet<FavoriteProduct>();
         }
 
         [Required]
@@ -49,5 +50,7 @@
         public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<CartProduct> CartProducts { get; set; }
+
+        public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; }
     }
 }

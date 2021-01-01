@@ -1,18 +1,17 @@
-﻿@model IEnumerable<HardwareAffinity.Web.ViewModels.Carts.CartProductViewModel>
-
+﻿@model IEnumerable<HardwareAffinity.Web.ViewModels.Favorites.FavoriteProductViewModel>
 @{
     var userName = this.User.Identity.Name;
-    this.ViewData["Title"] = $"{userName}'s cart";
+    this.ViewData["Title"] = $"{userName}'s favorites";
 }
 
 @if (this.Model.Count() == 0)
 {
-    <h1 class="text-center">There are no products in your cart @userName!</h1>
+    <h1 class="text-center">There are no favorite products in your favorites list @userName!</h1>
 }
 else
 {
     <div class="float-right">
-        <b>@userName, you have @this.Model.Count() products in your cart. Total amount: € @this.Model.Sum(p => p.Price)</b>
+        <b>@userName, you have @this.Model.Count() favorite products.</b>
     </div>
     <div class="container-custom">
         <div class="row">
@@ -27,15 +26,15 @@ else
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var product in this.Model)
+                        @foreach (var favoriteProduct in this.Model)
                         {
                             <tr>
                                 <th scope="row" class="w-25">
-                                    <img src="@product.MainImageUrl" class="img-fluid img-thumbnail" alt="@product.Title" />
+                                    <img src="@favoriteProduct.MainImageUrl" class="img-fluid img-thumbnail" alt="@favoriteProduct.Title" />
                                 </th>
-                                <td>@product.Title</td>
-                                <td>@product.ShortDescription</td>
-                                <td>€ @product.Price</td>
+                                <td>@favoriteProduct.Title</td>
+                                <td>@favoriteProduct.ShortDescription</td>
+                                <td>€ @favoriteProduct.Price</td>
                             </tr>
                         }
                     </tbody>

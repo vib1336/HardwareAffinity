@@ -4,6 +4,11 @@
     this.ViewData["Title"] = "Search results";
 }
 
+@if (this.Model.Count() != 0)
+{
+    <h5 class="text-center">@this.Model.Count() results were found</h5>
+}
+
 <div class="container-custom">
     <div class="row">
         <div class="col-12">
@@ -29,7 +34,11 @@
                                 <td>@product.Title</td>
                                 <td>@product.ShortDescription</td>
                                 <td>€ @product.Price</td>
-                                <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a></td>
+                                <td>
+                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">
+                                        <i class="fas fa-info-circle"></i> Details
+                                    </a>
+                                </td>
                             </tr>
                         }
                     </tbody>

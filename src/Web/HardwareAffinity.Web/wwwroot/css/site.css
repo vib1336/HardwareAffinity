@@ -2,6 +2,44 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 /*Custom CSS*/
+.homepage-button {
+    background-color: black;
+    border: none;
+    color: #929292;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+    .homepage-button:hover {
+        background-color: #000000db;
+        text-decoration: none;
+        color: white;
+    }
+
+.error-img {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.error-notfound {
+    font-size: 5.9375rem;
+    font-family: 'Barlow', sans-serif;
+    margin-bottom: 10px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.error-notfound-msg {
+    font-size: 1.125rem;
+    color: #333;
+    margin-bottom: 40px;
+    text-align: center;
+}
 
 /*overwrite bootstrap classes*/
 .navbar-light .navbar-brand {
@@ -11,19 +49,25 @@ for details on configuring this project to bundle and minify static web assets. 
 .navbar-light .navbar-nav .nav-link {
     color: rgba(146, 146, 146, 45);
 }
+
+.text-info {
+    color: #d8216d!important;
+    cursor: pointer;
+}
 /*overwrite bootstrap classes*/
 
-.disabled-stars{
-    pointer-events:none;
-    color:gray;
-}
-.active-stars{
-    cursor:pointer;
+.disabled-stars {
+    pointer-events: none;
+    color: gray;
 }
 
-.home-logo{
-    font-weight:700;
-    font-family:revert;
+.active-stars {
+    cursor: pointer;
+}
+
+.home-logo {
+    font-weight: 700;
+    font-family: revert;
 }
 
 .search-field {
@@ -47,7 +91,8 @@ h4 {
 .table-image th {
     vertical-align: middle;
 }
-.buy-button{
+
+.buy-button {
     margin: 25px 1px;
 }
 /*Custom CSS*/
@@ -62,6 +107,7 @@ a.navbar-brand {
 html {
     font-size: 14px;
 }
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -71,6 +117,7 @@ html {
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
     border-bottom: 1px solid #e5e5e5;
 }
@@ -95,6 +142,7 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
+
 .footer {
     position: absolute;
     bottom: 0;

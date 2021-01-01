@@ -32,7 +32,11 @@
 
         public const int CommentMinLength = 5;
 
+        public const string RequiredComment = "Comment must be at least 5 symbols long and 400 at most.";
+
         public const string ErrorMessage = "Cannot post comment for this product.";
+
+        public const string FavoritesErrorMessage = "Cannot add this product to favorites.";
 
         public const string PostComment = "Comment was successfully added.";
 
@@ -44,9 +48,11 @@
 
         public const string NoResultsFound = "No results were found.";
 
-        public const string ProductDoesNotExist = "This product does not exist.";
+        public const string ProductDoesNotExist = "Cannot add this product to cart.";
 
         public const string ProductSuccessfullyAdded = "Product successfully added to cart.";
+
+        public const string ProductSuccessfullyAddedToFavorites = "Product successfully added to favorites.";
 
         public const string ProductPosted = "Product was successfully added to {0} category.";
 

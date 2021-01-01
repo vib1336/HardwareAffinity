@@ -3,19 +3,12 @@
 }
 
 <head>
-    <link href="~/css/notfound.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap" rel="stylesheet">
 </head>
-
-<h1>There are no products for this category.</h1>
-
-<section class="error-container">
-    <span class="four"><span class="screen-reader-text">E</span></span>
-    <span class="zero"><span class="screen-reader-text">m</span></span>
-    <span class="four"><span class="screen-reader-text">p</span></span>
-    <span class="four"><span class="screen-reader-text">t</span></span>
-    <span class="four"><span class="screen-reader-text">y</span></span>
-</section>
-<div class="link-container">
-    <a asp-controller="Home" asp-action="Index" class="more-link">Go to home</a>
+<div class="error-img">
+    <img src="~/img/error.jpg" alt="errorImage" width="250" />
 </div>
-
+<div class="error-notfound">Oops!</div>
+<div class="error-notfound-msg">This category seems to be empty.</div>
+<div class="text-center"><a class="homepage-button" asp-controller="Home" asp-action="Index">Go to homepage</a></div>

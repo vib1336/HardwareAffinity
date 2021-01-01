@@ -32,6 +32,8 @@ namespace HardwareAffinity.Data.Models
 
         public virtual Cart Cart { get; set; }
 
+        public virtual Favorite Favorite { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }

@@ -6,7 +6,7 @@
 
     public class CommentInputModel
     {
-        [Required]
+        [Required(ErrorMessage = RequiredComment)]
         [StringLength(CommentMaxLength, MinimumLength = CommentMinLength)]
         public string Content { get; set; }
 
