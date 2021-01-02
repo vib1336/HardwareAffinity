@@ -66,10 +66,10 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Set many-to-many
-            builder.Entity<CartProduct>(entity =>
-            {
-                entity.HasKey(x => new { x.CartId, x.ProductId });
-            });
+            //builder.Entity<CartProduct>(entity =>
+            //{
+            //    entity.HasKey(x => new { x.CartId, x.ProductId });
+            //});
 
             builder.Entity<ApplicationUser>()
                 .HasOne(u => u.Cart)

@@ -23,6 +23,8 @@ else
                             <th scope="col">Title</th>
                             <th scope="col">Description</th>
                             <th scope="col">Price</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Remove</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +37,18 @@ else
                                 <td>@favoriteProduct.Title</td>
                                 <td>@favoriteProduct.ShortDescription</td>
                                 <td>€ @favoriteProduct.Price</td>
+                                <td>
+                                    <a class="btn btn-primary" asp-controller="Products" asp-action="Details" asp-route-id="@favoriteProduct.Id">
+                                        <i class="fas fa-info-circle"></i>
+                                        Details
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" asp-controller="Favorites" asp-action="RemoveFromFavorites" asp-route-productId="@favoriteProduct.Id">
+                                        <i class="fas fa-minus-circle"></i>
+                                        Remove
+                                    </a>
+                                </td>
                             </tr>
                         }
                     </tbody>

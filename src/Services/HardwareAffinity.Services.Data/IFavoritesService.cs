@@ -12,5 +12,7 @@
         Task<int> CreateFavoriteAsync(string userId);
 
         Task<bool> CheckIfFavoriteIsAddedAsync(string productId, int favoriteId);
+
+        Task RemoveFromFavoritesAsync(string productId, int favoriteId);
     }
 }

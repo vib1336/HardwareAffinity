@@ -53,5 +53,25 @@
 
             return this.View(favoriteProducts);
         }
+
+        public async Task<IActionResult> RemoveFromFavorites(string productId)
+        {
+            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            var productExists = await this.productsService.ProductExistsAsync(productId);
+
+            if (!productExists)
+            {
+                this.TempData["InfoMessage"] = UnsuccessfulFavoritesRemoval;
+                return this.RedirectToAction(nameof(this.MyFavorites));
+            }
+
+            var favoriteId = await this.favoritesService.CreateFavoriteAsync(userId);
+
+            await this.favoritesService.RemoveFromFavoritesAsync(productId, favoriteId);
+            this.TempData["InfoMessage2"] = SuccessfulFavoritesRemoval;
+
+            return this.RedirectToAction(nameof(this.MyFavorites));
+        }
     }
 }

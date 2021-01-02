@@ -2,7 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class CartProduct
+    using HardwareAffinity.Data.Common.Models;
+
+    public class CartProduct : BaseDeletableModel<int>
     {
         [Required]
         public string ProductId { get; set; }

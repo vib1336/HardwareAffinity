@@ -11,7 +11,7 @@ function sendVote(productId, rate) {
         dataType: "json",
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
-            if (!data['hasUserVoted']) {
+            if (!data['hasUserVotedBefore']) {
                 alert('Thank you for your vote.');
                 let stars = document.getElementsByClassName('active-stars');
                 for (const el of stars) {

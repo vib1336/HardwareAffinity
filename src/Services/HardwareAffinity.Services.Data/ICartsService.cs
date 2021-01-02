@@ -10,5 +10,7 @@
         Task AddProductToCartAsync(string productId, int cartId);
 
         Task<int> CreateCartAsync(string userId);
+
+        Task RemoveFromCartAsync(string productId, int cartId);
     }
 }

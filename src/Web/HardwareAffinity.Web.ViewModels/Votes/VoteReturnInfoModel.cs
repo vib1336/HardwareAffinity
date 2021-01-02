@@ -6,6 +6,6 @@
 
         public double Average { get; set; }
 
-        public bool HasUserVoted { get; set; }
+        public bool HasUserVotedBefore { get; set; }
     }
 }

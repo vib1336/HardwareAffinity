@@ -1,5 +1,6 @@
 ﻿namespace HardwareAffinity.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -12,16 +13,16 @@
     public class FavoritesService : IFavoritesService
     {
         private readonly IDeletableEntityRepository<Favorite> favoritesRepository;
-        private readonly IDeletableEntityRepository<FavoriteProduct> favoriteProductRepository;
+        private readonly IDeletableEntityRepository<FavoriteProduct> favoriteProductsRepository;
         private readonly IDeletableEntityRepository<Product> productsRepository;
 
         public FavoritesService(
             IDeletableEntityRepository<Favorite> favoritesRepository,
-            IDeletableEntityRepository<FavoriteProduct> favoriteProductRepository,
+            IDeletableEntityRepository<FavoriteProduct> favoriteProductsRepository,
             IDeletableEntityRepository<Product> productsRepository)
         {
             this.favoritesRepository = favoritesRepository;
-            this.favoriteProductRepository = favoriteProductRepository;
+            this.favoriteProductsRepository = favoriteProductsRepository;
             this.productsRepository = productsRepository;
         }
 
@@ -33,12 +34,17 @@
                 FavoriteId = favoriteId,
             };
 
-            await this.favoriteProductRepository.AddAsync(favoriteProduct);
-            await this.favoriteProductRepository.SaveChangesAsync();
+            await this.favoriteProductsRepository.AddAsync(favoriteProduct);
+            await this.favoriteProductsRepository.SaveChangesAsync();
         }
 
         public async Task<int> CreateFavoriteAsync(string userId)
         {
+            if (userId == null)
+            {
+                return 0;
+            }
+
             var userFavorite = await this.favoritesRepository.All().FirstOrDefaultAsync(f => f.UserId == userId);
 
             if (userFavorite != null)
@@ -64,7 +70,28 @@
             .ToListAsync();
 
         public async Task<bool> CheckIfFavoriteIsAddedAsync(string productId, int favoriteId)
-            => await this.favoriteProductRepository.All()
+        {
+            if (favoriteId == 0)
+            {
+                return true;
+            }
+
+            return await this.favoriteProductsRepository.All()
             .AnyAsync(fp => fp.ProductId == productId && fp.FavoriteId == favoriteId);
+        }
+
+        public async Task RemoveFromFavoritesAsync(string productId, int favoriteId)
+        {
+            var favoriteProduct = await this.favoriteProductsRepository.All()
+                .FirstOrDefaultAsync(fp => fp.ProductId == productId && fp.FavoriteId == favoriteId);
+
+            if (favoriteProduct != null)
+            {
+                favoriteProduct.DeletedOn = DateTime.UtcNow;
+                favoriteProduct.IsDeleted = true;
+
+                await this.favoriteProductsRepository.SaveChangesAsync();
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace HardwareAffinity.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -62,5 +63,19 @@
                 .Where(p => p.CartProducts.Any(cp => cp.CartId == cartId))
                 .To<T>()
                 .ToListAsync();
+
+        public async Task RemoveFromCartAsync(string productId, int cartId)
+        {
+            var cartProduct = await this.cartProductsRepository.All()
+                .FirstOrDefaultAsync(cp => cp.ProductId == productId && cp.CartId == cartId);
+
+            if (cartProduct != null)
+            {
+                cartProduct.DeletedOn = DateTime.UtcNow;
+                cartProduct.IsDeleted = true;
+
+                await this.cartProductsRepository.SaveChangesAsync();
+            }
+        }
     }
 }

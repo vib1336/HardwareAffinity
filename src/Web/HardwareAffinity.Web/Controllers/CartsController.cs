@@ -54,5 +54,25 @@
 
             return this.View(cartProducts);
         }
+
+        public async Task<IActionResult> RemoveFromCart(string productId)
+        {
+            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+            var productExists = await this.productsService.ProductExistsAsync(productId);
+
+            if (!productExists)
+            {
+                this.TempData["InfoMessage"] = UnsuccessfulCartRemoval;
+                return this.RedirectToAction(nameof(this.MyCart));
+            }
+
+            var cartId = await this.cartsService.CreateCartAsync(userId);
+
+            await this.cartsService.RemoveFromCartAsync(productId, cartId);
+            this.TempData["InfoMessage2"] = SuccessfulCartRemoval;
+
+            return this.RedirectToAction(nameof(this.MyCart));
+        }
     }
 }

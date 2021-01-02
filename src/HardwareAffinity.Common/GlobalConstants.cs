@@ -59,5 +59,13 @@
         public const string CategoriesView = "All";
 
         public const string SuccessfullyAddedCategory = "Category was successfully added.";
+
+        public const string UnsuccessfulFavoritesRemoval = "Cannot remove this product from favorites.";
+
+        public const string SuccessfulFavoritesRemoval = "Product was successfully removed from favorites.";
+
+        public const string UnsuccessfulCartRemoval = "Cannot remove this product from cart.";
+
+        public const string SuccessfulCartRemoval = "Product was successfully removed from cart.";
     }
 }
