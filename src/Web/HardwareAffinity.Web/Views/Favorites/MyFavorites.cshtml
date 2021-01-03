@@ -1,12 +1,26 @@
 ﻿@model IEnumerable<HardwareAffinity.Web.ViewModels.Favorites.FavoriteProductViewModel>
 @{
     var userName = this.User.Identity.Name;
-    this.ViewData["Title"] = $"{userName}'s favorites";
+    this.ViewData["Title"] = "Favorites";
 }
+
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap" rel="stylesheet">
+</head>
 
 @if (this.Model.Count() == 0)
 {
-    <h1 class="text-center">There are no favorite products in your favorites list @userName!</h1>
+    <div class="error-img">
+        <img src="~/img/star.jpg" alt="favoritesImage" width="100" />
+    </div>
+    <div class="error-notfound-msg">You have no favorites yet, @userName.</div>
+    <div class="error-notfound-msg">Products you mark as favorite will show up here.</div>
+    <div class="text-center">
+        <a class="homepage-button" asp-controller="Home" asp-action="Index">
+            Go to homepage
+        </a>
+    </div>
 }
 else
 {

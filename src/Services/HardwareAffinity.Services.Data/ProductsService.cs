@@ -14,6 +14,8 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
+    using static HardwareAffinity.Common.GlobalConstants;
+
     public class ProductsService : IProductsService
     {
         private readonly IDeletableEntityRepository<Product> productsRepository;
@@ -127,9 +129,11 @@
             return product.Id;
         }
 
-        public async Task<IEnumerable<T>> GetProductsForCategoryAsync<T>(int categoryId)
+        public async Task<IEnumerable<T>> GetProductsForCategoryAsync<T>(int categoryId, int page)
             => await this.productsRepository.All()
             .Where(p => p.CategoryId == categoryId)
+            .Skip((page - 1) * ProductsPerPage)
+            .Take(ProductsPerPage)
             .To<T>()
             .ToListAsync();
 
@@ -181,30 +185,38 @@
             return true;
         }
 
-        public async Task<IEnumerable<T>> OrderProductsByPriceAsync<T>(int categoryId)
+        public async Task<IEnumerable<T>> OrderProductsByPriceAsync<T>(int categoryId, int page)
             => await this.productsRepository.All()
             .Where(p => p.CategoryId == categoryId)
+            .Skip((page - 1) * ProductsPerPage)
+            .Take(ProductsPerPage)
             .OrderBy(p => p.Price)
             .To<T>()
             .ToListAsync();
 
-        public async Task<IEnumerable<T>> OrderProductsByPriceDescendingAsync<T>(int categoryId)
+        public async Task<IEnumerable<T>> OrderProductsByPriceDescendingAsync<T>(int categoryId, int page)
             => await this.productsRepository.All()
             .Where(p => p.CategoryId == categoryId)
+            .Skip((page - 1) * ProductsPerPage)
+            .Take(ProductsPerPage)
             .OrderByDescending(p => p.Price)
             .To<T>()
             .ToListAsync();
 
-        public async Task<IEnumerable<T>> OrderProductsByNameAsync<T>(int categoryId)
+        public async Task<IEnumerable<T>> OrderProductsByNameAsync<T>(int categoryId, int page)
             => await this.productsRepository.All()
             .Where(p => p.CategoryId == categoryId)
+            .Skip((page - 1) * ProductsPerPage)
+            .Take(ProductsPerPage)
             .OrderBy(p => p.Title)
             .To<T>()
             .ToListAsync();
 
-        public async Task<IEnumerable<T>> OrderProductsByNameDescendingAsync<T>(int categoryId)
+        public async Task<IEnumerable<T>> OrderProductsByNameDescendingAsync<T>(int categoryId, int page)
             => await this.productsRepository.All()
             .Where(p => p.CategoryId == categoryId)
+            .Skip((page - 1) * ProductsPerPage)
+            .Take(ProductsPerPage)
             .OrderByDescending(p => p.Title)
             .To<T>()
             .ToListAsync();

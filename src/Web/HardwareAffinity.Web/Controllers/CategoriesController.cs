@@ -68,7 +68,7 @@
                 .GetCategoryAsync<CategoryDisplayModel>(categoryId);
 
             categoryViewModel.AllProducts = await this.productsService
-                .OrderProductsByPriceAsync<AllProductsForCategoryViewModel>(categoryId);
+                .GetProductsForCategoryAsync<AllProductsForCategoryViewModel>(categoryId, page);
             categoryViewModel.AreOrderedByPrice = true;
 
             categoryViewModel.Total = totalCategoryProducts;
@@ -156,14 +156,14 @@
                 {
                     categoryViewModel.AllProducts =
                         await this.productsService
-                        .OrderProductsByPriceAsync<AllProductsForCategoryViewModel>(categoryId);
+                        .OrderProductsByPriceAsync<AllProductsForCategoryViewModel>(categoryId, page);
                     categoryViewModel.AreOrderedByPrice = isOrderAscending;
                 }
                 else
                 {
                     categoryViewModel.AllProducts =
                         await this.productsService
-                        .OrderProductsByPriceDescendingAsync<AllProductsForCategoryViewModel>(categoryId);
+                        .OrderProductsByPriceDescendingAsync<AllProductsForCategoryViewModel>(categoryId, page);
                     categoryViewModel.AreOrderedByPrice = isOrderAscending;
                 }
             }
@@ -173,14 +173,14 @@
                 {
                     categoryViewModel.AllProducts =
                         await this.productsService
-                        .OrderProductsByNameAsync<AllProductsForCategoryViewModel>(categoryId);
+                        .OrderProductsByNameAsync<AllProductsForCategoryViewModel>(categoryId, page);
                     categoryViewModel.AreOrderedByName = isOrderAscending;
                 }
                 else
                 {
                     categoryViewModel.AllProducts =
                         await this.productsService
-                        .OrderProductsByNameDescendingAsync<AllProductsForCategoryViewModel>(categoryId);
+                        .OrderProductsByNameDescendingAsync<AllProductsForCategoryViewModel>(categoryId, page);
                     categoryViewModel.AreOrderedByName = isOrderAscending;
                 }
             }

@@ -18,7 +18,7 @@ for details on configuring this project to bundle and minify static web assets. 
     .homepage-button:hover {
         background-color: #000000db;
         text-decoration: none;
-        color: white;
+        color: #cfcbcb;
     }
 
 .error-img {

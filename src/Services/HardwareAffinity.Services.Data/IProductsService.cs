@@ -7,7 +7,7 @@
 
     public interface IProductsService
     {
-        Task<IEnumerable<T>> GetProductsForCategoryAsync<T>(int categoryId);
+        Task<IEnumerable<T>> GetProductsForCategoryAsync<T>(int categoryId, int page);
 
         Task<int> CountProductsFromCategoryAsync(int categoryId);
 
@@ -29,13 +29,13 @@
 
         Task<bool> DeleteProductAsync(string id);
 
-        Task<IEnumerable<T>> OrderProductsByPriceAsync<T>(int categoryId);
+        Task<IEnumerable<T>> OrderProductsByPriceAsync<T>(int categoryId, int page);
 
-        Task<IEnumerable<T>> OrderProductsByPriceDescendingAsync<T>(int categoryId);
+        Task<IEnumerable<T>> OrderProductsByPriceDescendingAsync<T>(int categoryId, int page);
 
-        Task<IEnumerable<T>> OrderProductsByNameAsync<T>(int categoryId);
+        Task<IEnumerable<T>> OrderProductsByNameAsync<T>(int categoryId, int page);
 
-        Task<IEnumerable<T>> OrderProductsByNameDescendingAsync<T>(int categoryId);
+        Task<IEnumerable<T>> OrderProductsByNameDescendingAsync<T>(int categoryId, int page);
 
         Task<IEnumerable<T>> SearchProductsAsync<T>(string query);
     }

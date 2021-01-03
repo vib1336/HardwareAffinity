@@ -41,8 +41,4 @@
     <ProjectReference Include="..\HardwareAffinity.Web.Infrastructure\HardwareAffinity.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\HardwareAffinity.Web.ViewModels\HardwareAffinity.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
 </Project>

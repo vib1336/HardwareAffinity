@@ -5,9 +5,22 @@
     this.ViewData["Title"] = $"{userName}'s cart";
 }
 
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap" rel="stylesheet">
+</head>
+
 @if (this.Model.Count() == 0)
 {
-    <h1 class="text-center">There are no products in your cart @userName!</h1>
+    <div class="error-img">
+        <img src="~/img/cart.png" alt="cartImage" width="300" />
+    </div>
+    <div class="error-notfound-msg">Seems that you have no products in your cart, @userName.</div>
+    <div class="text-center">
+    <a class="homepage-button" asp-controller="Home" asp-action="Index">
+        Go to homepage
+        </a>
+    </div>
 }
 else
 {
@@ -40,13 +53,13 @@ else
                                 <td>€ @product.Price</td>
                                 <td>
                                     <a class="btn btn-primary" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
-                                        <i class="fas fa-info-circle"></i> 
+                                        <i class="fas fa-info-circle"></i>
                                         Details
                                     </a>
                                 </td>
                                 <td>
                                     <a class="btn btn-danger" asp-controller="Carts" asp-action="RemoveFromCart" asp-route-productId="@product.Id">
-                                        <i class="fas fa-minus-circle"></i> 
+                                        <i class="fas fa-minus-circle"></i>
                                         Remove
                                     </a>
                                 </td>
