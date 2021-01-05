@@ -2,7 +2,7 @@
 
 @{
     var userName = this.User.Identity.Name;
-    this.ViewData["Title"] = $"{userName}'s cart";
+    this.ViewData["Title"] = "My cart";
 }
 
 <head>
@@ -17,7 +17,7 @@
     </div>
     <div class="error-notfound-msg">Seems that you have no products in your cart, @userName.</div>
     <div class="text-center">
-    <a class="homepage-button" asp-controller="Home" asp-action="Index">
+    <a class="custom-black-button" asp-controller="Home" asp-action="Index">
         Go to homepage
         </a>
     </div>

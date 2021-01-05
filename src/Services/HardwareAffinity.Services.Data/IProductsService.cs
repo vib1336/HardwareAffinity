@@ -38,5 +38,7 @@
         Task<IEnumerable<T>> OrderProductsByNameDescendingAsync<T>(int categoryId, int page);
 
         Task<IEnumerable<T>> SearchProductsAsync<T>(string query);
+
+        Task<IEnumerable<object>> GetAllProductsSearchAsync();
     }
 }

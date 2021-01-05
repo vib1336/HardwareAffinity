@@ -227,5 +227,15 @@
             || p.Description.ToLower().Contains(query.ToLower()))
             .To<T>()
             .ToListAsync();
+
+        public async Task<IEnumerable<object>> GetAllProductsSearchAsync()
+            => await this.productsRepository.All()
+                .Select(p => new
+                {
+                    p.Id,
+                    p.Title,
+                    p.MainImageUrl,
+                })
+            .ToListAsync();
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<HardwareAffinity.Web.ViewModels.Favorites.FavoriteProductViewModel>
 @{
     var userName = this.User.Identity.Name;
-    this.ViewData["Title"] = "Favorites";
+    this.ViewData["Title"] = "My favorites";
 }
 
 <head>
@@ -17,7 +17,7 @@
     <div class="error-notfound-msg">You have no favorites yet, @userName.</div>
     <div class="error-notfound-msg">Products you mark as favorite will show up here.</div>
     <div class="text-center">
-        <a class="homepage-button" asp-controller="Home" asp-action="Index">
+        <a class="custom-black-button" asp-controller="Home" asp-action="Index">
             Go to homepage
         </a>
     </div>

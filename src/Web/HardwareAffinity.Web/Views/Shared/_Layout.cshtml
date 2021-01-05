@@ -1,4 +1,8 @@
 ﻿@using static HardwareAffinity.Common.GlobalConstants
+@inject HardwareAffinity.Services.Data.IProductsService productsService
+@{ 
+    var jsonProducts = Html.Raw(Json.Serialize(await productsService.GetAllProductsSearchAsync()));
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +54,7 @@
                         <li>
                             <form asp-controller="Search" asp-action="SearchProducts" method="get">
                                 <div class="input-group">
-                                    <input name="query" class="form-control search-field" placeholder="Product title..." />
+                                    <input oninput="searchAllProducts(this, @jsonProducts.ToString())" name="query" class="form-control search-field" placeholder="Product title..." />
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
                                     </div>
