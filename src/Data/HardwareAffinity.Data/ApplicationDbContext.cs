@@ -65,16 +65,10 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Set many-to-many
-            //builder.Entity<CartProduct>(entity =>
-            //{
-            //    entity.HasKey(x => new { x.CartId, x.ProductId });
-            //});
-
             builder.Entity<ApplicationUser>()
-                .HasOne(u => u.Cart)
-                .WithOne(c => c.User)
-                .HasForeignKey<Cart>(c => c.UserId);
+               .HasOne(u => u.Cart)
+               .WithOne(c => c.User)
+               .HasForeignKey<Cart>(c => c.UserId);
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
