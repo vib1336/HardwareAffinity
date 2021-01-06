@@ -15,3 +15,8 @@ Online electronics store
 ## Authors
 
 - [Valentin Bratoychev](https://github.com/vib1336)
+
+## Database diagram
+
+![Database diagram](/images/diagram1.PNG)
+![Database diagram](/images/diagram2.PNG)
