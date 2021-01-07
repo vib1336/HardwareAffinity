@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using HardwareAffinity.Services.Data;
+    using HardwareAffinity.Web.Extensions;
     using HardwareAffinity.Web.ViewModels.Comments;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@
                 return this.Redirect("/");
             }
 
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
 
             await this.commentsService.AddCommentAsync(inputModel.Content, inputModel.ProductId, userId);
 

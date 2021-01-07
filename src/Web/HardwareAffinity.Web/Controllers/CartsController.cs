@@ -1,10 +1,9 @@
 ﻿namespace HardwareAffinity.Web.Controllers
 {
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using HardwareAffinity.Services.Data;
+    using HardwareAffinity.Web.Extensions;
     using HardwareAffinity.Web.ViewModels.Carts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -33,7 +32,7 @@
                 return this.View("Index");
             }
 
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
 
             // if it's needed create a cart for user and return the id, if not just return the cart id
             var cartId = await this.cartsService.CreateCartAsync(userId);
@@ -46,7 +45,7 @@
 
         public async Task<IActionResult> MyCart()
         {
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
 
             var cartId = await this.cartsService.CreateCartAsync(userId);
 
@@ -57,7 +56,7 @@
 
         public async Task<IActionResult> RemoveFromCart(string productId)
         {
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
 
             var productExists = await this.productsService.ProductExistsAsync(productId);
 

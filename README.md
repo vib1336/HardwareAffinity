@@ -12,9 +12,14 @@ Online electronics store
 * Font Awesome
 * Moment.js
 
-## Authors
+## Author
 
 - [Valentin Bratoychev](https://github.com/vib1336)
+
+## Template authors
+
+- [Nikolay Kostov](https://github.com/NikolayIT)
+- [Vladislav Karamfilov](https://github.com/vladislav-karamfilov)
 
 ## Database diagram
 

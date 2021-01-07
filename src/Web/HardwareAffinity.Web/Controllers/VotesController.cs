@@ -1,10 +1,9 @@
 ﻿namespace HardwareAffinity.Web.Controllers
 {
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using HardwareAffinity.Services.Data;
+    using HardwareAffinity.Web.Extensions;
     using HardwareAffinity.Web.ViewModels.Votes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,7 @@
         [HttpPost]
         public async Task<ActionResult<VoteReturnInfoModel>> Vote(VoteInputModel inputModel)
         {
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
 
             var hasUserVotedBefore = await this.votesService.HasUserVotedAsync(inputModel.ProductId, userId);
 

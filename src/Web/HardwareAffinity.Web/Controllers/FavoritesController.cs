@@ -1,10 +1,9 @@
 ﻿namespace HardwareAffinity.Web.Controllers
 {
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using HardwareAffinity.Services.Data;
+    using HardwareAffinity.Web.Extensions;
     using HardwareAffinity.Web.ViewModels.Favorites;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -25,7 +24,7 @@
 
         public async Task<IActionResult> AddToFavorites(string id)
         {
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
             var favoriteId = await this.favoritesService.CreateFavoriteAsync(userId);
 
             var productExists = await this.productsService.ProductExistsAsync(id);
@@ -45,7 +44,7 @@
 
         public async Task<IActionResult> MyFavorites()
         {
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
 
             var favoriteId = await this.favoritesService.CreateFavoriteAsync(userId);
 
@@ -56,7 +55,7 @@
 
         public async Task<IActionResult> RemoveFromFavorites(string productId)
         {
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
 
             var productExists = await this.productsService.ProductExistsAsync(productId);
 
