@@ -14,6 +14,7 @@
                     break;
             }
 
+            this.Response.StatusCode = 404;
             return this.View("NotFound");
         }
     }

@@ -72,7 +72,7 @@
             services.AddSingleton(cloudinary); // register cloudinary service
 
             // Facebook Login
-            // services.AddAuthentication().AddFacebook(facebookOptions =>
+            //services.AddAuthentication().AddFacebook(facebookOptions =>
             // {
             //     facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
             //     facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
