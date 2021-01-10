@@ -17,6 +17,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -78,6 +79,14 @@
             //     facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
             // }); // Facebook Login
 
+            // Sendgrid
+            services.Configure<SendGridEmailSenderOptions>(options =>
+            {
+                options.ApiKey = this.configuration["SendGrid:ApiKey"];
+                options.SenderEmail = this.configuration["SendGrid:SenderEmail"];
+                options.SenderName = this.configuration["SendGrid:SenderName"];
+            });
+
             services.AddSingleton(this.configuration);
 
             // Data repositories
@@ -86,7 +95,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IProductsService, ProductsService>();

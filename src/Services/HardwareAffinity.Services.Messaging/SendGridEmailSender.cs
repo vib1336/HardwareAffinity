@@ -1,51 +1,54 @@
 ﻿namespace HardwareAffinity.Services.Messaging
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.Extensions.Options;
     using SendGrid;
     using SendGrid.Helpers.Mail;
 
     public class SendGridEmailSender : IEmailSender
     {
-        private readonly SendGridClient client;
-
-        public SendGridEmailSender(string apiKey)
+        public SendGridEmailSender(
+            IOptions<SendGridEmailSenderOptions> options)
         {
-            this.client = new SendGridClient(apiKey);
+            this.Options = options.Value;
         }
 
-        public async Task SendEmailAsync(string from, string fromName, string to, string subject, string htmlContent, IEnumerable<EmailAttachment> attachments = null)
+        public SendGridEmailSenderOptions Options { get; set; }
+
+        public async Task SendEmailAsync(
+            string email,
+            string subject,
+            string message)
         {
-            if (string.IsNullOrWhiteSpace(subject) && string.IsNullOrWhiteSpace(htmlContent))
-            {
-                throw new ArgumentException("Subject and message should be provided.");
-            }
+            await this.Execute(this.Options.ApiKey, subject, message, email);
+        }
 
-            var fromAddress = new EmailAddress(from, fromName);
-            var toAddress = new EmailAddress(to);
-            var message = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, null, htmlContent);
-            if (attachments?.Any() == true)
+        private async Task<Response> Execute(
+            string apiKey,
+            string subject,
+            string message,
+            string email)
+        {
+            var client = new SendGridClient(apiKey);
+            var msg = new SendGridMessage()
             {
-                foreach (var attachment in attachments)
-                {
-                    message.AddAttachment(attachment.FileName, Convert.ToBase64String(attachment.Content), attachment.MimeType);
-                }
-            }
+                From = new EmailAddress(this.Options.SenderEmail, this.Options.SenderName),
+                Subject = subject,
+                PlainTextContent = message,
+                HtmlContent = message,
+            };
+            msg.AddTo(new EmailAddress(email));
 
-            try
-            {
-                var response = await this.client.SendEmailAsync(message);
-                Console.WriteLine(response.StatusCode);
-                Console.WriteLine(await response.Body.ReadAsStringAsync());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            // disable tracking settings
+            // ref.: https://sendgrid.com/docs/User_Guide/Settings/tracking.html
+            msg.SetClickTracking(false, false);
+            msg.SetOpenTracking(false);
+            msg.SetGoogleAnalytics(false);
+            msg.SetSubscriptionTracking(false);
+
+            return await client.SendEmailAsync(msg);
         }
     }
 }

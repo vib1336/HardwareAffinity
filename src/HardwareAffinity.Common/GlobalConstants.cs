@@ -52,7 +52,7 @@
 
         public const string ProductSuccessfullyAdded = "Product successfully added to cart.";
 
-        public const string ProductSuccessfullyAddedToFavorites = "Product successfully added to favorites.";
+        public const string ProductSuccessfullyAddedToFavorites = "Product was successfully added to favorites.";
 
         public const string ProductPosted = "Product was successfully added to {0} category.";
 

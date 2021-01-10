@@ -1,17 +1,15 @@
 ﻿namespace HardwareAffinity.Services.Messaging
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity.UI.Services;
 
     public class NullMessageSender : IEmailSender
     {
         public Task SendEmailAsync(
-            string from,
-            string fromName,
-            string to,
+            string email,
             string subject,
-            string htmlContent,
-            IEnumerable<EmailAttachment> attachments = null)
+            string message)
         {
             return Task.CompletedTask;
         }
