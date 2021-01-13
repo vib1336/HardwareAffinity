@@ -1,4 +1,11 @@
 ﻿@using static HardwareAffinity.Common.GlobalConstants
+@using HardwareAffinity.Web.Extensions
+@inject HardwareAffinity.Services.Data.ICartsService cartsService
+@{ 
+    var userId = this.User.GetId();
+    var cartId = await this.cartsService.CreateCartAsync(userId);
+    var cartProductsCount = await this.cartsService.GetMyCartProductsCountAsync(cartId);
+}
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +39,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Carts" asp-action="MyCart">
                                     <i class="fas fa-shopping-cart"></i>
-                                    Cart
+                                    Cart (@cartProductsCount)
                                 </a>
                             </li>
                         }

@@ -5,6 +5,8 @@
 
     public interface ICartsService
     {
+        Task<int> GetMyCartProductsCountAsync(int cartId);
+
         Task<IEnumerable<T>> GetMyCartProductsAsync<T>(int cartId);
 
         Task AddProductToCartAsync(string productId, int cartId);

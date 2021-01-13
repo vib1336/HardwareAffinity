@@ -13,12 +13,12 @@
     public class CartsService : ICartsService
     {
         private readonly IDeletableEntityRepository<Cart> cartsRepository;
-        private readonly IRepository<CartProduct> cartProductsRepository;
+        private readonly IDeletableEntityRepository<CartProduct> cartProductsRepository;
         private readonly IDeletableEntityRepository<Product> productsRepository;
 
         public CartsService(
             IDeletableEntityRepository<Cart> cartsRepository,
-            IRepository<CartProduct> cartProductsRepository,
+            IDeletableEntityRepository<CartProduct> cartProductsRepository,
             IDeletableEntityRepository<Product> productsRepository)
         {
             this.cartsRepository = cartsRepository;
@@ -40,6 +40,11 @@
 
         public async Task<int> CreateCartAsync(string userId)
         {
+            if (userId == null)
+            {
+                return 0;
+            }
+
             var userCart = await this.cartsRepository.All().FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (userCart != null)
@@ -60,9 +65,21 @@
 
         public async Task<IEnumerable<T>> GetMyCartProductsAsync<T>(int cartId)
                  => await this.productsRepository.All()
-                .Where(p => p.CartProducts.Any(cp => cp.CartId == cartId))
-                .To<T>()
-                .ToListAsync();
+            .Where(p => p.CartProducts.Any(cp => cp.CartId == cartId))
+            .To<T>()
+            .ToListAsync();
+
+        public async Task<int> GetMyCartProductsCountAsync(int cartId)
+        {
+            if (cartId == 0)
+            {
+                return 0;
+            }
+
+            return await this.productsRepository.All()
+                  .Where(p => p.CartProducts.Any(cp => cp.CartId == cartId))
+                  .CountAsync();
+        }
 
         public async Task RemoveFromCartAsync(string productId, int cartId)
         {

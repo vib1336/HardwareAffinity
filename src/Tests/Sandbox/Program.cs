@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
     using HardwareAffinity.Data;
     using HardwareAffinity.Data.Common;
     using HardwareAffinity.Data.Common.Repositories;
@@ -13,9 +14,7 @@
     using HardwareAffinity.Data.Seeding;
     using HardwareAffinity.Services.Data;
     using HardwareAffinity.Services.Messaging;
-
-    using CommandLine;
-
+    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;

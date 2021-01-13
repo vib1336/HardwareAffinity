@@ -77,7 +77,7 @@
             // {
             //     facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
             //     facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
-            // }); // Facebook Login
+            // });
 
             // Sendgrid
             services.Configure<SendGridEmailSenderOptions>(options =>

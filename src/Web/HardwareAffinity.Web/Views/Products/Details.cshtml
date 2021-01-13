@@ -2,6 +2,7 @@
 @using static HardwareAffinity.Common.GlobalConstants
 @{
     this.ViewData["Title"] = this.Model.Title;
+    var rateProductMessage = this.User.Identity.IsAuthenticated ? "Rate this product:" : "Login to rate this product:";
 }
 <div id="PlaceHolderHere"></div>
 
@@ -27,7 +28,7 @@
                 <h1 id="ProductPrice"><i class="fas fa-euro-sign"></i> @this.Model.Price</h1>
             </div>
             <div class="row">
-                <h6>Rate this product:</h6>
+                <h6>@rateProductMessage</h6>
             </div>
             <div class="row">
                 <form id="votesForm" method="post"></form>
