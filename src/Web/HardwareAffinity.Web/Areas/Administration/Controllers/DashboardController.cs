@@ -1,10 +1,9 @@
 ﻿namespace HardwareAffinity.Web.Areas.Administration.Controllers
 {
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using HardwareAffinity.Services.Data;
+    using HardwareAffinity.Web.Extensions;
     using HardwareAffinity.Web.ViewModels.Categories;
     using HardwareAffinity.Web.ViewModels.Products;
     using Microsoft.AspNetCore.Mvc;
@@ -41,7 +40,7 @@
                 return this.View("Index", inputModel);
             }
 
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.GetId();
 
             var categoryName = await this.categoriesService.GetCategoryNameAsync(inputModel.CategoryId);
 
@@ -55,7 +54,7 @@
 
             this.TempData["InfoMessage2"] = string.Format(ProductPosted, categoryName);
 
-            return this.Redirect("/");
+            return this.RedirectToAction("Details", "Products", new { id = productId });
         }
     }
 }

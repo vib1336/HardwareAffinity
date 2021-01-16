@@ -6,6 +6,7 @@ Online electronics store
 * ASP.NET Core 3.1
 * EF Core 3.1
 * SQL Server 2017 Express
+* Bootstrap 4.5.3
 * Vanilla JavaScript/jQuery
 * Ajax
 * Cloudinary
