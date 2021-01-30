@@ -11,7 +11,7 @@
 
     using static HardwareAffinity.Common.GlobalConstants;
 
-    public class CategoriesController : Controller
+    public class CategoriesController : BaseController
     {
         private readonly ICategoriesService categoriesService;
         private readonly IProductsService productsService;
@@ -37,7 +37,13 @@
                 return this.View(inputModel);
             }
 
-            await this.categoriesService.CreateCategoryAsync(inputModel.Title, inputModel.Description);
+            var successfullyCreated = await this.categoriesService.CreateCategoryAsync(inputModel.Title, inputModel.Description);
+
+            if (!successfullyCreated)
+            {
+                this.TempData["InfoMessage"] = UnsuccessfulCategoryCreation;
+                return this.Redirect("/");
+            }
 
             this.TempData["InfoMessage2"] = SuccessfullyAddedCategory;
             return this.Redirect("/");

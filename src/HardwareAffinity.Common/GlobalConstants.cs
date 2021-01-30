@@ -60,6 +60,8 @@
 
         public const string SuccessfullyAddedCategory = "Category was successfully added.";
 
+        public const string UnsuccessfulCategoryCreation = "This category already exists.";
+
         public const string UnsuccessfulFavoritesRemoval = "Cannot remove this product from favorites.";
 
         public const string SuccessfulFavoritesRemoval = "Product was successfully removed from favorites.";

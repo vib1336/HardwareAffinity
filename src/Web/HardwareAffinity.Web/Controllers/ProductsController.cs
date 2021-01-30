@@ -13,7 +13,7 @@
 
     using static HardwareAffinity.Common.GlobalConstants;
 
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
         private readonly IProductsService productsService;
         private readonly IIMagesService imagesService;

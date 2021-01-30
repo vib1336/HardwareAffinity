@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class ErrorController : Controller
+    public class ErrorController : BaseController
     {
         [Route("/Error/{statusCode}")]
         public IActionResult HttpStatusCodeHandler(int statusCode)

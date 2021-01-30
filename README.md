@@ -10,6 +10,7 @@ Online electronics store
 * Vanilla JavaScript/jQuery
 * Ajax
 * Cloudinary
+* Elasticsearch
 * SendGrid
 * Font Awesome
 * Moment.js

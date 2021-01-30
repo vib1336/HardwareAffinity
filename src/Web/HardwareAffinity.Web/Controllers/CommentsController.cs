@@ -13,7 +13,7 @@
     using static HardwareAffinity.Common.GlobalConstants;
 
     [Authorize]
-    public class CommentsController : Controller
+    public class CommentsController : BaseController
     {
         private readonly ICommentsService commentsService;
         private readonly IProductsService productsService;

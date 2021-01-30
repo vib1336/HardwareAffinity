@@ -9,11 +9,12 @@
     using HardwareAffinity.Data.Models;
     using HardwareAffinity.Data.Repositories;
     using HardwareAffinity.Data.Seeding;
+    using HardwareAffinity.Services;
     using HardwareAffinity.Services.Data;
     using HardwareAffinity.Services.Mapping;
     using HardwareAffinity.Services.Messaging;
+    using HardwareAffinity.Web.Extensions;
     using HardwareAffinity.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -89,6 +90,8 @@
 
             services.AddSingleton(this.configuration);
 
+            services.AddElasticsearch(this.configuration);
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -104,6 +107,7 @@
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<ICartsService, CartsService>();
             services.AddTransient<IFavoritesService, FavoritesService>();
+            services.AddTransient<ISearchService, SearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

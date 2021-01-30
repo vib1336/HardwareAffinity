@@ -43,6 +43,12 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 /*overwrite bootstrap classes*/
+.btn-primary {
+    color: #fff;
+    background-color: #266bb4;
+    border-color: #007bff;
+}
+
 .dropdown-menu {
     background-color: #343a40;
 }

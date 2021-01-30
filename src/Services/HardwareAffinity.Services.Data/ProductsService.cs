@@ -21,15 +21,18 @@
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IDeletableEntityRepository<Image> imagesRepository;
         private readonly Cloudinary cloudinary;
+        private readonly ISearchService searchService;
 
         public ProductsService(
             IDeletableEntityRepository<Product> productsRepository,
             IDeletableEntityRepository<Image> imagesRepository,
-            Cloudinary cloudinary)
+            Cloudinary cloudinary,
+            ISearchService searchService)
         {
             this.productsRepository = productsRepository;
             this.imagesRepository = imagesRepository;
             this.cloudinary = cloudinary;
+            this.searchService = searchService;
         }
 
         public async Task<int> CountProductsFromCategoryAsync(int categoryId)
@@ -89,6 +92,8 @@
                             ImageUrl = uploadResult.Uri.AbsoluteUri,
                             ProductId = pr.Id,
                         };
+
+                        var response = await this.searchService.CreateIndexAsync(pr);
 
                         await this.imagesRepository.AddAsync(img);
 
@@ -166,6 +171,8 @@
             product.Description = description;
             product.Price = price;
 
+            var response = await this.searchService.UpdateIndexAsync(product);
+
             await this.productsRepository.SaveChangesAsync();
         }
 
@@ -180,6 +187,9 @@
 
             productToDelete.IsDeleted = true;
             productToDelete.DeletedOn = DateTime.UtcNow;
+
+            var response = await this.searchService.DeleteIndexAsync(productToDelete);
+
             await this.productsRepository.SaveChangesAsync();
 
             return true;

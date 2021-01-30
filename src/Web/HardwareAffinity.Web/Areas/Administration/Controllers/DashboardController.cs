@@ -54,7 +54,7 @@
 
             this.TempData["InfoMessage2"] = string.Format(ProductPosted, categoryName);
 
-            return this.RedirectToAction("Details", "Products", new { id = productId });
+            return this.Redirect("/");
         }
     }
 }

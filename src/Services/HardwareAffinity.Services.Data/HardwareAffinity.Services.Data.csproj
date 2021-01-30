@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Data\HardwareAffinity.Data.Common\HardwareAffinity.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\HardwareAffinity.Data.Models\HardwareAffinity.Data.Models.csproj" />
     <ProjectReference Include="..\HardwareAffinity.Services.Mapping\HardwareAffinity.Services.Mapping.csproj" />
+    <ProjectReference Include="..\HardwareAffinity.Services\HardwareAffinity.Services.csproj" />
   </ItemGroup>
 
 </Project>

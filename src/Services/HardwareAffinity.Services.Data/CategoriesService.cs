@@ -16,13 +16,13 @@
         public CategoriesService(IRepository<Category> categoriesRepository)
             => this.categoriesRepository = categoriesRepository;
 
-        public async Task CreateCategoryAsync(string title, string description)
+        public async Task<bool> CreateCategoryAsync(string title, string description)
         {
             var exists = this.categoriesRepository.All().Any(c => c.Title.ToLower() == title.ToLower());
 
             if (exists)
             {
-                return;
+                return false;
             }
 
             var category = new Category
@@ -33,6 +33,8 @@
 
             await this.categoriesRepository.AddAsync(category);
             await this.categoriesRepository.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<IEnumerable<T>> GetAllCategoriesAsync<T>()

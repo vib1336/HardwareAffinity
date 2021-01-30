@@ -11,7 +11,7 @@
     using static HardwareAffinity.Common.GlobalConstants;
 
     [Authorize]
-    public class FavoritesController : Controller
+    public class FavoritesController : BaseController
     {
         private readonly IProductsService productsService;
         private readonly IFavoritesService favoritesService;
