@@ -38,7 +38,10 @@
         }
 
         public async Task<IEnumerable<T>> GetAllCategoriesAsync<T>()
-            => await this.categoriesRepository.All().To<T>().ToListAsync();
+            => await this.categoriesRepository.All()
+            .OrderBy(c => c.Id)
+            .To<T>()
+            .ToListAsync();
 
         public async Task<T> GetCategoryAsync<T>(int id)
             => await this.categoriesRepository.All()

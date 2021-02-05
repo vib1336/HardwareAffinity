@@ -69,5 +69,9 @@
         public const string UnsuccessfulCartRemoval = "Cannot remove this product from cart.";
 
         public const string SuccessfulCartRemoval = "Product was successfully removed from cart.";
+
+        public const string EmailIsInUse = "This email already exists.";
+
+        public const string UserNameIsInUse = "This username already exists.";
     }
 }

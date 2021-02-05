@@ -1,10 +1,14 @@
 ﻿@using static HardwareAffinity.Common.GlobalConstants
 @using HardwareAffinity.Web.Extensions
+@using HardwareAffinity.Web.ViewModels.Categories
 @inject HardwareAffinity.Services.Data.ICartsService cartsService
+@inject HardwareAffinity.Services.Data.ICategoriesService categoriesService
 @{ 
     var userId = this.User.GetId();
     var cartId = await this.cartsService.CreateCartAsync(userId);
     var cartProductsCount = await this.cartsService.GetMyCartProductsCountAsync(cartId);
+
+    var allCategories = await this.categoriesService.GetAllCategoriesAsync<CategoryFormDataModel>();
 }
 
 <!DOCTYPE html>
@@ -48,17 +52,18 @@
                                 Categories
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Categories" asp-action="All" asp-route-categoryId="1">TV</a>
-                                <a class="dropdown-item" asp-controller="Categories" asp-action="All" asp-route-categoryId="2">Smartphones</a>
-                                <a class="dropdown-item" asp-controller="Categories" asp-action="All" asp-route-categoryId="3">Audio</a>
+                                @foreach (var category in allCategories)
+                                {
+                                    <a class="dropdown-item" asp-controller="Categories" asp-action="All" asp-route-categoryId="@category.Id">@category.Title</a>
+                                }
                             </div>
                         </li>
                         <li>
                             <form asp-controller="Search" asp-action="SearchProducts" method="get">
                                 <div class="input-group">
-                                    <input name="query" class="form-control search-field" placeholder="Product title..." />
+                                    <input name="query" class="form-control search-field" placeholder="Product title..." value="@this.ViewContext.HttpContext.Request.Query["query"]" />
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </form>

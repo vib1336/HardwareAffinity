@@ -6,7 +6,16 @@
 
 @if (this.Model.Count() != 0)
 {
-    <h5 class="text-center">@this.Model.Count() results were found</h5>
+    var resultString = string.Empty;
+    if (this.Model.Count() == 1)
+    {
+        resultString = "result was";
+    }
+    else
+    {
+        resultString = "results were";
+    }
+    <h5 class="text-center">@this.Model.Count() @resultString found</h5>
 }
 
 <div class="container-custom">

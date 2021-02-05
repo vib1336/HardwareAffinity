@@ -48,10 +48,12 @@
         {
             [Required]
             [Display(Name = "Username")]
+            [Remote("VerifyUserName", "Users")]
             public string UserName { get; set; }
 
             [Required]
             [EmailAddress]
+            [Remote("VerifyEmail", "Users")]
             public string Email { get; set; }
 
             [Required]

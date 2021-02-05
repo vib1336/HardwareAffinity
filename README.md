@@ -1,5 +1,5 @@
 # HardwareAffinity
-Online electronics store
+Online store for consumer electronics. There is no real payment system implemented.
 
 ## Build with:
 

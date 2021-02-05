@@ -36,7 +36,7 @@
                 .Must(sh => sh
                 .Match(t => t.Field(f => f.Title.ToLower()).Query(query.ToLower()))))));
 
-                if (!response.IsValid)
+                if (!response.IsValid || response.Documents.Count == 0)
                 {
                     this.TempData["InfoMessage"] = NoResultsFound;
                     return this.View(foundProducts);

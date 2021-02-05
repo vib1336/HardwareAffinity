@@ -7,9 +7,6 @@
 
     public class SearchService : ISearchService
     {
-        private const string ElasticSearch = "Elasticsearch: ";
-        private const string ModelElasticSearch = "Elasticsearch model is null.";
-
         private readonly IElasticClient client;
 
         public SearchService(IElasticClient client)
@@ -20,14 +17,14 @@
         {
             if (model == null)
             {
-                throw new ArgumentException(ModelElasticSearch);
+                throw new ArgumentException("Elasticsearch model is null.");
             }
 
             var result = await this.client.IndexDocumentAsync(model);
 
             if (!result.IsValid)
             {
-                throw new ArgumentException(ElasticSearch + result.OriginalException);
+                throw new ArgumentException("Elasticsearch: " + result.OriginalException);
             }
 
             return result.Result;
@@ -38,14 +35,14 @@
         {
             if (model == null)
             {
-                throw new ArgumentException(ModelElasticSearch);
+                throw new ArgumentException("Elasticsearch model is null.");
             }
 
             var result = await this.client.DeleteAsync<T>(model);
 
             if (!result.IsValid)
             {
-                throw new ArgumentException(ElasticSearch + result.OriginalException);
+                throw new ArgumentException("Elasticsearch: " + result.OriginalException);
             }
 
             return result.Result;
@@ -56,14 +53,14 @@
         {
             if (model == null)
             {
-                throw new ArgumentException(ModelElasticSearch);
+                throw new ArgumentException("Elasticsearch model is null.");
             }
 
             var result = await this.client.UpdateAsync<T>(model, u => u.Doc(model));
 
             if (!result.IsValid)
             {
-                throw new ArgumentException(ElasticSearch + result.OriginalException);
+                throw new ArgumentException("Elasticsearch: " + result.OriginalException);
             }
 
             return result.Result;
