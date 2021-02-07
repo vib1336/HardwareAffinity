@@ -66,5 +66,4 @@
         private void InitializeMapper()
             => AutoMapperConfig.RegisterMappings(typeof(VotesServiceTests).Assembly);
     }
-
 }
