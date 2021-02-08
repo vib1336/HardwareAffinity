@@ -18,17 +18,20 @@
 
     public class ProductsService : IProductsService
     {
+        private readonly IRepository<Category> categoriesRepository;
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IDeletableEntityRepository<Image> imagesRepository;
         private readonly Cloudinary cloudinary;
         private readonly ISearchService searchService;
 
         public ProductsService(
+            IRepository<Category> categoriesRepository,
             IDeletableEntityRepository<Product> productsRepository,
             IDeletableEntityRepository<Image> imagesRepository,
             Cloudinary cloudinary,
             ISearchService searchService)
         {
+            this.categoriesRepository = categoriesRepository;
             this.productsRepository = productsRepository;
             this.imagesRepository = imagesRepository;
             this.cloudinary = cloudinary;
@@ -46,6 +49,11 @@
             string userId,
             IEnumerable<IFormFile> images)
         {
+            if (!await this.categoriesRepository.All().AnyAsync(c => c.Id == categoryId))
+            {
+                return null;
+            }
+
             var product = new Product
             {
                 Title = title,

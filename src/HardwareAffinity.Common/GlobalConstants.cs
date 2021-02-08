@@ -48,6 +48,8 @@
 
         public const string NoResultsFound = "No results were found.";
 
+        public const string ProductToInexistentCategory = "Cannot add product to inexistent category.";
+
         public const string ProductDoesNotExist = "Cannot add this product to cart.";
 
         public const string ProductSuccessfullyAdded = "Product successfully added to cart.";

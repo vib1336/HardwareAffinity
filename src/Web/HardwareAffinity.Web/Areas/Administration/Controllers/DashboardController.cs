@@ -52,7 +52,14 @@
                 userId,
                 inputModel.Images);
 
-            this.TempData["InfoMessage2"] = string.Format(ProductPosted, categoryName);
+            if (string.IsNullOrEmpty(productId))
+            {
+                this.TempData["InfoMessage"] = ProductToInexistentCategory;
+            }
+            else
+            {
+                this.TempData["InfoMessage2"] = string.Format(ProductPosted, categoryName);
+            }
 
             return this.Redirect("/");
         }
