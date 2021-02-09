@@ -75,5 +75,9 @@
         public const string EmailIsInUse = "This email already exists.";
 
         public const string UserNameIsInUse = "This username already exists.";
+
+        public const string TitleIsRequired = "Title is required.";
+
+        public const string DescriptionIsRequired = "Description is required.";
     }
 }

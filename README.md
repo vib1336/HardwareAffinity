@@ -11,7 +11,7 @@ https://hardwareaffinity.azurewebsites.net/
 
 * ASP.NET Core 3.1
 * EF Core 3.1
-* SQL Server 2017 Express/Azure SQL
+* SQL Server
 * Bootstrap 4.5.3
 * Vanilla JavaScript/jQuery
 * Ajax

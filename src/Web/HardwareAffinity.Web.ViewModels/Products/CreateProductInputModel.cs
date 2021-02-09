@@ -10,11 +10,11 @@
 
     public class CreateProductInputModel
     {
-        [Required]
+        [Required(ErrorMessage = TitleIsRequired)]
         [StringLength(ProductTitleMaxLength, MinimumLength = ProductTitleMinLength)]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = DescriptionIsRequired)]
         [StringLength(ProductDescriptionMaxLength, MinimumLength = ProductDescriptionMinLength)]
         public string Description { get; set; }
 

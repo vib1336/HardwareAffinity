@@ -6,11 +6,11 @@
 
     public class CreateCategoryInputModel
     {
-        [Required]
+        [Required(ErrorMessage = TitleIsRequired)]
         [StringLength(CategoryTitleMaxLength, MinimumLength = CategoryTitleMinLength)]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = DescriptionIsRequired)]
         [StringLength(CategoryDescriptionMaxLength)]
         public string Description { get; set; }
     }
