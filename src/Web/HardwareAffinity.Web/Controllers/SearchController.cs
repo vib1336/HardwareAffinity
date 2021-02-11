@@ -30,30 +30,38 @@
 
             if (!string.IsNullOrEmpty(query))
             {
-                var response = await this.elasticClient.SearchAsync<Product>(s => s
-                .Query(q => q
-                .Bool(x => x
-                .Must(sh => sh
-                .Match(t => t.Field(f => f.Title.ToLower()).Query(query.ToLower()))))));
+                // var response = await this.elasticClient.SearchAsync<Product>(s => s
+                // .Query(q => q
+                // .Bool(x => x
+                // .Must(sh => sh
+                // .Match(t => t.Field(f => f.Title.ToLower()).Query(query.ToLower()))))));
 
-                if (!response.IsValid || response.Documents.Count == 0)
+                // if (!response.IsValid || response.Documents.Count == 0)
+                // {
+                //     this.TempData["InfoMessage"] = NoResultsFound;
+                //     return this.View(foundProducts);
+                // }
+
+                // foundProducts = response.Documents
+                //    .Where(p => !p.IsDeleted)
+                //    .Select(p => new AllProductsForCategoryViewModel
+                //    {
+                //        Id = p.Id,
+                //        Title = p.Title,
+                //        Price = p.Price,
+                //        Description = p.Description,
+                //        MainImageUrl = p.MainImageUrl,
+                //    })
+                //    .OrderBy(x => x.Price)
+                //    .ToList();
+
+                foundProducts = await this.productsService
+                    .SearchProductsAsync<AllProductsForCategoryViewModel>(query);
+
+                if (foundProducts.Count() == 0)
                 {
                     this.TempData["InfoMessage"] = NoResultsFound;
-                    return this.View(foundProducts);
                 }
-
-                foundProducts = response.Documents
-                    .Where(p => !p.IsDeleted)
-                    .Select(p => new AllProductsForCategoryViewModel
-                    {
-                        Id = p.Id,
-                        Title = p.Title,
-                        Price = p.Price,
-                        Description = p.Description,
-                        MainImageUrl = p.MainImageUrl,
-                    })
-                    .OrderBy(x => x.Price)
-                    .ToList();
             }
             else
             {

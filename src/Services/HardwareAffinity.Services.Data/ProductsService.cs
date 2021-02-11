@@ -21,6 +21,8 @@
         private readonly IRepository<Category> categoriesRepository;
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IDeletableEntityRepository<Image> imagesRepository;
+        private readonly IDeletableEntityRepository<Vote> votesRepository;
+        private readonly IDeletableEntityRepository<Comment> commentsRepository;
         private readonly Cloudinary cloudinary;
         private readonly ISearchService searchService;
 
@@ -28,12 +30,16 @@
             IRepository<Category> categoriesRepository,
             IDeletableEntityRepository<Product> productsRepository,
             IDeletableEntityRepository<Image> imagesRepository,
+            IDeletableEntityRepository<Vote> votesRepository,
+            IDeletableEntityRepository<Comment> commentsRepository,
             Cloudinary cloudinary,
             ISearchService searchService)
         {
             this.categoriesRepository = categoriesRepository;
             this.productsRepository = productsRepository;
             this.imagesRepository = imagesRepository;
+            this.votesRepository = votesRepository;
+            this.commentsRepository = commentsRepository;
             this.cloudinary = cloudinary;
             this.searchService = searchService;
         }
@@ -101,7 +107,7 @@
                             ProductId = pr.Id,
                         };
 
-                        var response = await this.searchService.CreateIndexAsync(pr);
+                        // var response = await this.searchService.CreateIndexAsync(pr);
 
                         await this.imagesRepository.AddAsync(img);
 
@@ -179,7 +185,7 @@
             product.Description = description;
             product.Price = price;
 
-            var response = await this.searchService.UpdateIndexAsync(product);
+            // var response = await this.searchService.UpdateIndexAsync(product);
 
             await this.productsRepository.SaveChangesAsync();
         }
@@ -187,6 +193,8 @@
         public async Task<bool> DeleteProductAsync(string id)
         {
             var productToDelete = await this.productsRepository.All().FirstOrDefaultAsync(p => p.Id == id);
+            var productVotes = this.votesRepository.All().Where(v => v.ProductId == id);
+            var productComments = this.commentsRepository.All().Where(c => c.ProductId == id);
 
             if (productToDelete == null)
             {
@@ -196,9 +204,29 @@
             productToDelete.IsDeleted = true;
             productToDelete.DeletedOn = DateTime.UtcNow;
 
-            var response = await this.searchService.DeleteIndexAsync(productToDelete);
+            if (productVotes.Count() > 0)
+            {
+                foreach (var vote in productVotes)
+                {
+                    vote.IsDeleted = true;
+                    vote.DeletedOn = DateTime.UtcNow;
+                }
+            }
+
+            if (productComments.Count() > 0)
+            {
+                foreach (var comment in productComments)
+                {
+                    comment.IsDeleted = true;
+                    comment.DeletedOn = DateTime.UtcNow;
+                }
+            }
+
+            // var response = await this.searchService.DeleteIndexAsync(productToDelete);
 
             await this.productsRepository.SaveChangesAsync();
+            await this.votesRepository.SaveChangesAsync();
+            await this.commentsRepository.SaveChangesAsync();
 
             return true;
         }
