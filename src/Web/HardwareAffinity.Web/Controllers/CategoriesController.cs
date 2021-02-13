@@ -51,6 +51,11 @@
 
         public async Task<IActionResult> All(int categoryId, int page = 1)
         {
+            if (!await this.categoriesService.CategoryExistsAsync(categoryId))
+            {
+                return this.View("NotExistentCategory");
+            }
+
             int totalCategoryProducts = await this.productsService.CountProductsFromCategoryAsync(categoryId);
 
             int maxPage = (int)Math.Ceiling((double)totalCategoryProducts / ProductsPerPage);
@@ -64,8 +69,7 @@
             {
                 page = 1;
             }
-
-            if (page > maxPage)
+            else if (page > maxPage)
             {
                 page = maxPage;
             }

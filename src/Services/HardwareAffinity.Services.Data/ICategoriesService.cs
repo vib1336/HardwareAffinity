@@ -12,5 +12,7 @@
         Task<T> GetCategoryAsync<T>(int id);
 
         Task<string> GetCategoryNameAsync(int id);
+
+        Task<bool> CategoryExistsAsync(int id);
     }
 }

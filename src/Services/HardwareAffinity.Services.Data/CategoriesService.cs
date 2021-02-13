@@ -54,5 +54,8 @@
             .Where(c => c.Id == id)
             .Select(c => c.Title)
             .FirstOrDefaultAsync();
+
+        public async Task<bool> CategoryExistsAsync(int id)
+            => await this.categoriesRepository.All().AnyAsync(c => c.Id == id);
     }
 }

@@ -204,22 +204,16 @@
             productToDelete.IsDeleted = true;
             productToDelete.DeletedOn = DateTime.UtcNow;
 
-            if (productVotes.Count() > 0)
+            foreach (var vote in productVotes)
             {
-                foreach (var vote in productVotes)
-                {
-                    vote.IsDeleted = true;
-                    vote.DeletedOn = DateTime.UtcNow;
-                }
+                vote.IsDeleted = true;
+                vote.DeletedOn = DateTime.UtcNow;
             }
 
-            if (productComments.Count() > 0)
+            foreach (var comment in productComments)
             {
-                foreach (var comment in productComments)
-                {
-                    comment.IsDeleted = true;
-                    comment.DeletedOn = DateTime.UtcNow;
-                }
+                comment.IsDeleted = true;
+                comment.DeletedOn = DateTime.UtcNow;
             }
 
             // var response = await this.searchService.DeleteIndexAsync(productToDelete);
