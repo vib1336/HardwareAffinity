@@ -65,13 +65,16 @@
                 return this.View("EmptyCategory");
             }
 
-            if (page <= 0)
+            if (page <= 0 || page > maxPage)
             {
-                page = 1;
-            }
-            else if (page > maxPage)
-            {
-                page = maxPage;
+                if (page <= 0)
+                {
+                    page = 1;
+                }
+                else if (page > maxPage)
+                {
+                    page = maxPage;
+                }
             }
 
             var categoryViewModel = await this.categoriesService
