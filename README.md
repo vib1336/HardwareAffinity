@@ -1,5 +1,5 @@
 # HardwareAffinity
-Online store for consumer electronics. The navbar contain the following menus: cart menu where users can add their products with option to remove them (authorized user only). Favorites menu where users can store their favorite products with option to view and remove them(authorized user only). Categories dropdown for different product categories. Admin panel accessible only for admin users. Admin user has the right to edit and delete(soft delete) all products. There is no real payment system implemented. 
+Online store for consumer electronics. The navbar contain the following menus: cart menu where users can add their products with option to remove them (authorized user only). Favorites menu where users can store their favorite products with option to view and remove them(authorized user only). Categories dropdown for different product categories. Admin panel accessible only for admin users. Admin user has the permission to edit and delete (soft delete) all products. There is no real payment system implemented. 
 
 https://hardwareaffinity.azurewebsites.net/
 
