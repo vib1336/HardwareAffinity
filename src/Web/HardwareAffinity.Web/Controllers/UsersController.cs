@@ -19,15 +19,9 @@
         {
             var user = this.userManager.FindByEmailAsync(email).GetAwaiter().GetResult();
 
-            try
+            if (user != null)
             {
-                if (user != null)
-                {
-                    return this.Json(EmailIsInUse);
-                }
-            }
-            catch
-            {
+                return this.Json(EmailIsInUse);
             }
 
             return this.Json(true);
