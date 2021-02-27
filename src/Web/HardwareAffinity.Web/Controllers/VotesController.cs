@@ -14,13 +14,29 @@
     public class VotesController : ControllerBase
     {
         private readonly IVotesService votesService;
+        private readonly IProductsService productsService;
 
-        public VotesController(IVotesService votesService)
-            => this.votesService = votesService;
+        public VotesController(
+            IVotesService votesService,
+            IProductsService productsService)
+        {
+            this.votesService = votesService;
+            this.productsService = productsService;
+        }
 
         [HttpPost]
         public async Task<ActionResult<VoteReturnInfoModel>> Vote(VoteInputModel inputModel)
         {
+            if (!await this.productsService.ProductExistsAsync(inputModel.ProductId))
+            {
+                return new VoteReturnInfoModel
+                {
+                    Average = default,
+                    Count = default,
+                    HasUserVotedBefore = default,
+                };
+            }
+
             var userId = this.User.GetId();
 
             var hasUserVotedBefore = await this.votesService.HasUserVotedAsync(inputModel.ProductId, userId);
