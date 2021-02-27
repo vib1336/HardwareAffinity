@@ -15,6 +15,7 @@
     {
         private readonly ApplicationDbContext db;
         private readonly IDeletableEntityRepository<Vote> votesRepository;
+        private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IVotesService votesService;
 
         public VotesServiceTests()
@@ -25,7 +26,7 @@
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
             this.db = new ApplicationDbContext(options.Options);
             this.votesRepository = new EfDeletableEntityRepository<Vote>(this.db);
-            this.votesService = new VotesService(this.votesRepository);
+            this.votesService = new VotesService(this.votesRepository, this.productsRepository);
         }
 
         [Fact]

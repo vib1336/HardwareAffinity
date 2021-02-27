@@ -10,12 +10,23 @@
     public class VotesService : IVotesService
     {
         private readonly IDeletableEntityRepository<Vote> votesRepository;
+        private readonly IDeletableEntityRepository<Product> productsRepository;
 
-        public VotesService(IDeletableEntityRepository<Vote> votesRepository)
-            => this.votesRepository = votesRepository;
+        public VotesService(
+            IDeletableEntityRepository<Vote> votesRepository,
+            IDeletableEntityRepository<Product> productsRepository)
+        {
+            this.votesRepository = votesRepository;
+            this.productsRepository = productsRepository;
+        }
 
         public async Task AddVoteAsync(string productId, int rate, string userId)
         {
+            if (!await this.productsRepository.All().AnyAsync(p => p.Id == productId))
+            {
+                return;
+            }
+
             var vote = await this.votesRepository.All()
                 .FirstOrDefaultAsync(v => v.ProductId == productId && v.UserId == userId);
 
