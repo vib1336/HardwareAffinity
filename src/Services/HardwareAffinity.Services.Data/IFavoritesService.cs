@@ -13,6 +13,6 @@
 
         Task<bool> CheckIfFavoriteIsAddedAsync(string productId, int favoriteId);
 
-        Task RemoveFromFavoritesAsync(string productId, int favoriteId);
+        Task<bool> RemoveFromFavoritesAsync(string productId, int favoriteId);
     }
 }

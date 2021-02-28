@@ -80,7 +80,7 @@
             .AnyAsync(fp => fp.ProductId == productId && fp.FavoriteId == favoriteId);
         }
 
-        public async Task RemoveFromFavoritesAsync(string productId, int favoriteId)
+        public async Task<bool> RemoveFromFavoritesAsync(string productId, int favoriteId)
         {
             var favoriteProduct = await this.favoriteProductsRepository.All()
                 .FirstOrDefaultAsync(fp => fp.ProductId == productId && fp.FavoriteId == favoriteId);
@@ -91,7 +91,10 @@
                 favoriteProduct.IsDeleted = true;
 
                 await this.favoriteProductsRepository.SaveChangesAsync();
+                return true;
             }
+
+            return false;
         }
     }
 }
