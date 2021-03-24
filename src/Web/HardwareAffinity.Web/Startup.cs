@@ -148,6 +148,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapControllerRoute("searchRoute", "Search", new { controller = "Search", action = "SearchProducts" });
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

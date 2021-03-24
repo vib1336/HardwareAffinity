@@ -59,7 +59,7 @@
                             </div>
                         </li>
                         <li>
-                            <form asp-controller="Search" asp-action="SearchProducts" method="get">
+                            <form asp-route="searchRoute" method="get">
                                 <div class="input-group">
                                     <input type="search" name="query" class="form-control search-field" placeholder="Product title..." value="@this.ViewContext.HttpContext.Request.Query["query"]" />
                                     <div class="input-group-append">
