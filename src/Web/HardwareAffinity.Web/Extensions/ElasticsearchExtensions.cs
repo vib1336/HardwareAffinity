@@ -10,6 +10,11 @@
 
     public static class ElasticsearchExtensions
     {
+        /// <summary>
+        /// Adds and configures the Elasticsearch as a service.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void AddElasticsearch(this IServiceCollection services, IConfiguration configuration)
         {
             var url = configuration["elasticsearch:url"];
