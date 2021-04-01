@@ -1,6 +1,19 @@
 ﻿@model HardwareAffinity.Web.ViewModels.Comments.CommentInfoModel
-
+@using static HardwareAffinity.Common.GlobalConstants;
+@{
+    var commentContentId = Guid.NewGuid().ToString();
+    var commentContent = this.Model.IsDeleted ? "<em>The comment was deleted by admin.</em>" : this.Model.SanitizedContent;
+}
+<hr />
+<form id="commentDeleteForm" method="post"></form>
 <span><i class="fas fa-calendar"></i> <time datetime="@this.Model.CreatedOn.ToString("O")"></time> | <i class="fas fa-pen"></i> @this.Model.UserUserName</span>
 <br />
-<p>@this.Model.Content</p>
+@if (this.User.IsInRole(AdministratorRoleName))
+{
+    <button type="submit" class="btn btn-danger btn-sm float-right" onclick="deleteProductComment(@this.Model.Id, '@commentContentId')">
+        <i class="fas fa-trash"></i>
+    </button>
+}
+
+<p id="@commentContentId">@Html.Raw(commentContent)</p>
 <hr />

@@ -124,3 +124,26 @@ function showConfirmDeleteModal(url, productId, trId) {
         }
     })
 }
+
+// delete product comment
+
+function deleteProductComment(commentId, commentContentId) {
+    if (confirm("Delete this comment?")) {
+        var token = $('#commentDeleteForm input[name=__RequestVerificationToken]').val();
+        var json = { commentId };
+
+        $.ajax({
+            url: "/commentsapi/deletecomment",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: { 'X-CSRF-TOKEN': token },
+            success: function (res) {
+                if (res['isDeleted']) {
+                    $(`#${commentContentId}`).html('<em>The comment was deleted by admin.</em>');
+                }
+            }
+        })
+    }
+}

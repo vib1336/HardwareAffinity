@@ -54,6 +54,9 @@
                 <h5 id="votesInfo">@this.Model.AverageRate.ToString("F2") / @this.Model.CountVotes votes</h5>
             </div>
             <div class="row">
+                <h6>This product has @this.Model.Comments.Count() <i class="fas fa-comments"></i></h6>
+            </div>
+            <div class="row">
                 <p id="ProductDescription"><i class="text-success fa fa-check-square-o" aria-hidden="true"></i> <strong>Description</strong> @this.Model.Description</p>
             </div>
             <div class="row mt-4">
@@ -92,7 +95,7 @@
 {
     foreach (var comment in this.Model.Comments)
     {
-        <div>
+        <div style="background-color: #e9ecef4f">
             <partial name="_ProductDetailsComments" model="comment" />
         </div>
     }

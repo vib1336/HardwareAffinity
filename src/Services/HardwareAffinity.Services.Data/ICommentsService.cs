@@ -8,5 +8,7 @@
         Task<IEnumerable<T>> GetProductCommentsAsync<T>(string productId);
 
         Task AddCommentAsync(string content, string productId, string userId);
+
+        Task<bool> DeleteCommentAsync(int id);
     }
 }

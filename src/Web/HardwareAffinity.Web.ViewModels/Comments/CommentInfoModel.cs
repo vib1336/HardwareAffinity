@@ -2,6 +2,7 @@
 {
     using System;
 
+    using Ganss.XSS;
     using HardwareAffinity.Data.Models;
     using HardwareAffinity.Services.Mapping;
 
@@ -14,5 +15,9 @@
         public string Content { get; set; }
 
         public string UserUserName { get; set; }
+
+        public string SanitizedContent => new HtmlSanitizer().Sanitize(this.Content);
+
+        public bool IsDeleted { get; set; }
     }
 }

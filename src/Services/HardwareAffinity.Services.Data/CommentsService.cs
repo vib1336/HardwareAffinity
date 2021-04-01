@@ -1,5 +1,6 @@
 ﻿namespace HardwareAffinity.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -30,8 +31,24 @@
         }
 
         public async Task<IEnumerable<T>> GetProductCommentsAsync<T>(string productId)
-            => await this.commentsRepository.All().Where(c => c.ProductId == productId)
+            => await this.commentsRepository.AllWithDeleted().Where(c => c.ProductId == productId)
             .To<T>()
             .ToListAsync();
+
+        public async Task<bool> DeleteCommentAsync(int id)
+        {
+            var comment = await this.commentsRepository.All().FirstOrDefaultAsync(c => c.Id == id);
+
+            if (comment == null)
+            {
+                return false;
+            }
+
+            comment.IsDeleted = true;
+            comment.DeletedOn = DateTime.UtcNow;
+
+            await this.commentsRepository.SaveChangesAsync();
+            return true;
+        }
     }
 }
