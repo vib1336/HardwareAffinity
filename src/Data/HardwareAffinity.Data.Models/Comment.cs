@@ -12,6 +12,10 @@
         [StringLength(CommentMaxLength, MinimumLength = CommentMinLength)]
         public string Content { get; set; }
 
+        public int? ParentId { get; set; }
+
+        public virtual Comment Parent { get; set; }
+
         [Required]
         public string UserId { get; set; }
 

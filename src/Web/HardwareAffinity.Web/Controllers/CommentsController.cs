@@ -32,8 +32,19 @@
                 return this.View("_PostCommentForm", inputModel);
             }
 
+            var parentId = inputModel.ParentId == 0 ? (int?)null : inputModel.ParentId;
+
             var productExists = await this.productsService.ProductExistsAsync(inputModel.ProductId);
             var productIsDeleted = await this.productsService.ProductIsDeletedAsync(inputModel.ProductId);
+
+            if (parentId.HasValue)
+            {
+                if (!await this.commentsService.IsInProductIdAsync(parentId.Value, inputModel.ProductId))
+                {
+                    this.TempData["InfoMessage"] = ErrorMessage;
+                    return this.Redirect("/");
+                }
+            }
 
             if (!productExists || productIsDeleted)
             {
@@ -43,7 +54,7 @@
 
             var userId = this.User.GetId();
 
-            await this.commentsService.AddCommentAsync(inputModel.Content, inputModel.ProductId, userId);
+            await this.commentsService.AddCommentAsync(inputModel.Content, inputModel.ProductId, userId, parentId);
 
             this.TempData["InfoMessage2"] = PostComment;
 

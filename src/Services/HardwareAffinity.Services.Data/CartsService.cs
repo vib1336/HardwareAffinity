@@ -88,8 +88,7 @@
 
             if (cartProduct != null)
             {
-                cartProduct.DeletedOn = DateTime.UtcNow;
-                cartProduct.IsDeleted = true;
+                this.cartProductsRepository.Delete(cartProduct);
 
                 await this.cartProductsRepository.SaveChangesAsync();
             }

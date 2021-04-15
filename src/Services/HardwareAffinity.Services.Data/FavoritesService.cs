@@ -87,8 +87,7 @@
 
             if (favoriteProduct != null)
             {
-                favoriteProduct.DeletedOn = DateTime.UtcNow;
-                favoriteProduct.IsDeleted = true;
+                this.favoriteProductsRepository.Delete(favoriteProduct);
 
                 await this.favoriteProductsRepository.SaveChangesAsync();
                 return true;

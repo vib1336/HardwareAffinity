@@ -28,7 +28,8 @@ function sendVote(productId, rate) {
 
 // Show comment form
 
-function showCommentBox() {
+function showCommentBox(parentId) {
+    $("#commentForm input[name='ParentId']").val(parentId);
     $('#commentForm').show();
     $([document.documentElement, document.body]).animate({
         scrollTop: $("#commentForm").offset().top

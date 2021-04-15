@@ -10,6 +10,8 @@
         [StringLength(CommentMaxLength, MinimumLength = CommentMinLength)]
         public string Content { get; set; }
 
+        public int ParentId { get; set; }
+
         [Required]
         public string ProductId { get; set; }
     }

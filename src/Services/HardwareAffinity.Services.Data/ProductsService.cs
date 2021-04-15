@@ -195,25 +195,28 @@
             var productToDelete = await this.productsRepository.All().FirstOrDefaultAsync(p => p.Id == id);
             var productVotes = this.votesRepository.All().Where(v => v.ProductId == id);
             var productComments = this.commentsRepository.All().Where(c => c.ProductId == id);
+            var productImages = this.imagesRepository.All().Where(i => i.ProductId == id);
 
             if (productToDelete == null)
             {
                 return false;
             }
 
-            productToDelete.IsDeleted = true;
-            productToDelete.DeletedOn = DateTime.UtcNow;
+            this.productsRepository.Delete(productToDelete);
 
             foreach (var vote in productVotes)
             {
-                vote.IsDeleted = true;
-                vote.DeletedOn = DateTime.UtcNow;
+                this.votesRepository.Delete(vote);
             }
 
             foreach (var comment in productComments)
             {
-                comment.IsDeleted = true;
-                comment.DeletedOn = DateTime.UtcNow;
+                this.commentsRepository.Delete(comment);
+            }
+
+            foreach (var image in productImages)
+            {
+                this.imagesRepository.Delete(image);
             }
 
             // var response = await this.searchService.DeleteIndexAsync(productToDelete);
@@ -221,6 +224,7 @@
             await this.productsRepository.SaveChangesAsync();
             await this.votesRepository.SaveChangesAsync();
             await this.commentsRepository.SaveChangesAsync();
+            await this.imagesRepository.SaveChangesAsync();
 
             return true;
         }
