@@ -128,7 +128,7 @@ function showConfirmDeleteModal(url, productId, trId) {
 
 // delete product comment
 
-function deleteProductComment(commentId, commentContentId) {
+function deleteProductComment(commentId, commentContentId, commentButtonsId) {
     if (confirm("Delete this comment?")) {
         var token = $('#commentDeleteForm input[name=__RequestVerificationToken]').val();
         var json = { commentId };
@@ -143,6 +143,7 @@ function deleteProductComment(commentId, commentContentId) {
             success: function (res) {
                 if (res['isDeleted']) {
                     $(`#${commentContentId}`).html('<em>The comment was deleted by admin.</em>');
+                    $(`#${commentButtonsId}`).remove();
                 }
             }
         })
