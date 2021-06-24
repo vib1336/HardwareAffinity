@@ -100,10 +100,13 @@
             <div class="panel">
                 <div class="panel-body">
                     <form id="commentDeleteForm" method="post"></form>
+                    <form id="sendCommentVoteForm" method="post"></form>
                     <!-- Newsfeed Content -->
                     <!--===================================================-->
                     @foreach (var comment in this.Model.Comments)
                     {
+                        var positiveVotesId = Guid.NewGuid().ToString();
+                        var negativeVotesId = Guid.NewGuid().ToString();
                         var commentButtonsId = Guid.NewGuid().ToString();
                         var commentContentId = Guid.NewGuid().ToString();
                         var commentContent = comment.IsDeleted ? "<em>The comment was deleted by admin.</em>" : comment.SanitizedContent;
@@ -122,6 +125,18 @@
                                         {
                                             <a onclick="deleteProductComment(@comment.Id, '@commentContentId', '@commentButtonsId')" class="btn btn-sm btn-danger" href="#">Delete</a>
                                         }
+                                        <div class="d-inline">
+                                            <a href="#" onclick="sendCommentVote(@comment.Id, true, '@positiveVotesId', '@negativeVotesId')">
+                                                <i class="fa fa-thumbs-up"></i>
+                                            </a>
+                                            <span id="@positiveVotesId">@comment.CommentPositiveVotes</span>
+                                        </div>
+                                        <div class="d-inline">
+                                            <a href="#" onclick="sendCommentVote(@comment.Id, false, '@positiveVotesId', '@negativeVotesId')">
+                                                <i class="fa fa-thumbs-down"></i>
+                                            </a>
+                                            <span id="@negativeVotesId">@comment.CommentNegativeVotes</span>
+                                        </div>
                                     </div>
                                 }
 
@@ -131,6 +146,8 @@
                                     {
                                         foreach (var nestedComment in this.Model.Comments.Where(c => c.ParentId == comment.Id))
                                         {
+                                            var nestedCommentPositiveVotesId = Guid.NewGuid().ToString();
+                                            var nestedCommentNegativeVotesId = Guid.NewGuid().ToString();
                                             var nestedCommentButtonsId = Guid.NewGuid().ToString();
                                             var nestedCommentContentId = Guid.NewGuid().ToString();
                                             var nestedCommentContent = comment.IsDeleted ? "<em>The comment was deleted by admin.</em>" : comment.SanitizedContent;
@@ -149,6 +166,18 @@
                                                             {
                                                                 <a onclick="deleteProductComment(@nestedComment.Id, '@nestedCommentContentId', '@nestedCommentButtonsId')" class="btn btn-sm btn-danger" href="#">Delete</a>
                                                             }
+                                                            <div class="d-inline">
+                                                                <a href="#" onclick="sendCommentVote(@nestedComment.Id, true, '@nestedCommentPositiveVotesId', '@nestedCommentNegativeVotesId')">
+                                                                    <i class="fa fa-thumbs-up"></i>
+                                                                </a>
+                                                                <span id="@nestedCommentPositiveVotesId">@nestedComment.CommentPositiveVotes</span>
+                                                            </div>
+                                                            <div class="d-inline">
+                                                                <a href="#" onclick="sendCommentVote(@nestedComment.Id, false, '@nestedCommentPositiveVotesId', '@nestedCommentNegativeVotesId')">
+                                                                    <i class="fa fa-thumbs-down"></i>
+                                                                </a>
+                                                                <span id="@nestedCommentNegativeVotesId">@nestedComment.CommentNegativeVotes</span>
+                                                            </div>
                                                         </div>
                                                     }
                                                 </div>

@@ -13,9 +13,15 @@
     public class CommentsService : ICommentsService
     {
         private readonly IDeletableEntityRepository<Comment> commentsRepository;
+        private readonly IDeletableEntityRepository<CommentVote> commentVotesRepository;
 
-        public CommentsService(IDeletableEntityRepository<Comment> commentsRepository)
-            => this.commentsRepository = commentsRepository;
+        public CommentsService(
+            IDeletableEntityRepository<Comment> commentsRepository,
+            IDeletableEntityRepository<CommentVote> commentVotesRepository)
+        {
+            this.commentsRepository = commentsRepository;
+            this.commentVotesRepository = commentVotesRepository;
+        }
 
         public async Task AddCommentAsync(string content, string productId, string userId, int? parentId = null)
         {
@@ -45,6 +51,15 @@
                 return false;
             }
 
+            var commentVotes = this.commentVotesRepository.All().Where(cv => cv.CommentId == comment.Id);
+
+            foreach (var commentVote in commentVotes)
+            {
+                this.commentVotesRepository.Delete(commentVote);
+            }
+
+            await this.commentVotesRepository.SaveChangesAsync();
+
             this.commentsRepository.Delete(comment);
 
             await this.commentsRepository.SaveChangesAsync();
@@ -59,5 +74,9 @@
                 .FirstOrDefaultAsync();
             return commentProductId == productId;
         }
+
+        public async Task<bool> DoesCommentExistsAsync(int commentId)
+            => await this.commentsRepository.All()
+            .AnyAsync(c => c.Id == commentId);
     }
 }

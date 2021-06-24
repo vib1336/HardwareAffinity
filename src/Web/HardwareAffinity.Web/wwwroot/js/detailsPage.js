@@ -4,7 +4,7 @@ function sendVote(productId, rate) {
     var token = $("#votesForm input[name=__RequestVerificationToken]").val();
     var json = { productId: productId, rate: rate };
     $.ajax({
-        url: "/api/votes",
+        url: "/Votes/Vote",
         method: "POST",
         data: JSON.stringify(json),
         contentType: "application/json; charset=utf-8",
@@ -148,4 +148,26 @@ function deleteProductComment(commentId, commentContentId, commentButtonsId) {
             }
         })
     }
+}
+
+// send comment vote
+
+function sendCommentVote(commentId, isUpVote, positiveVotesId, negativeVotesId) {
+    var token = $("#sendCommentVoteForm input[name=__RequestVerificationToken]").val();
+    var json = { commentId: commentId, isUpVote: isUpVote };
+
+    $.ajax({
+        url: "/Votes/AddVoteForComment",
+        method: "POST",
+        data: JSON.stringify(json),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        headers: { 'X-CSRF-TOKEN': token },
+        success: function (data) {
+            if (data["successfulVoting"]) {
+                $(`#${positiveVotesId}`).html(data["positiveVotesCount"]);
+                $(`#${negativeVotesId}`).html(data["negativeVotesCount"]);
+            }
+        }
+    });
 }

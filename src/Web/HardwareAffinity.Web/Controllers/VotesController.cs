@@ -9,22 +9,25 @@
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/[controller]")]
     [Authorize]
     public class VotesController : ControllerBase
     {
         private readonly IVotesService votesService;
         private readonly IProductsService productsService;
+        private readonly ICommentsService commentsService;
 
         public VotesController(
             IVotesService votesService,
-            IProductsService productsService)
+            IProductsService productsService,
+            ICommentsService commentsService)
         {
             this.votesService = votesService;
             this.productsService = productsService;
+            this.commentsService = commentsService;
         }
 
         [HttpPost]
+        [Route("Votes/Vote")]
         public async Task<ActionResult<VoteReturnInfoModel>> Vote(VoteInputModel inputModel)
         {
             if (!await this.productsService.ProductExistsAsync(inputModel.ProductId))
@@ -50,6 +53,29 @@
                 Average = voteInfo.Average,
                 Count = voteInfo.Count,
                 HasUserVotedBefore = hasUserVotedBefore,
+            };
+        }
+
+        [HttpPost]
+        [Route("Votes/AddVoteForComment")]
+        public async Task<ActionResult<object>> AddVoteForComment(CommentVoteInputModel inputModel)
+        {
+            if (!await this.commentsService.DoesCommentExistsAsync(inputModel.CommentId))
+            {
+                return new { SuccessfulVoting = false };
+            }
+
+            var userId = this.User.GetId();
+
+            var successfulVoting = await this.votesService.AddVoteToCommentAsync(inputModel.CommentId, inputModel.IsUpVote, userId);
+
+            var commentVotes = await this.votesService.GetVotesForCommentAsync(inputModel.CommentId);
+
+            return new
+            {
+                PositiveVotesCount = commentVotes.PositiveVotes,
+                NegativeVotesCount = commentVotes.NegativeVotes,
+                SuccessfulVoting = successfulVoting,
             };
         }
     }

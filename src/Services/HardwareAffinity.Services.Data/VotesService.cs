@@ -10,9 +10,15 @@
     public class VotesService : IVotesService
     {
         private readonly IDeletableEntityRepository<Vote> votesRepository;
+        private readonly IDeletableEntityRepository<CommentVote> commentsVotesRepository;
 
-        public VotesService(IDeletableEntityRepository<Vote> votesRepository)
-            => this.votesRepository = votesRepository;
+        public VotesService(
+            IDeletableEntityRepository<Vote> votesRepository,
+            IDeletableEntityRepository<CommentVote> commentsVotesRepository)
+        {
+            this.votesRepository = votesRepository;
+            this.commentsVotesRepository = commentsVotesRepository;
+        }
 
         public async Task AddVoteAsync(string productId, int rate, string userId)
         {
@@ -41,6 +47,29 @@
             }
         }
 
+        public async Task<bool> AddVoteToCommentAsync(int commentId, bool isUpVote, string userId)
+        {
+            var commentVote = await this.commentsVotesRepository.All()
+                .FirstOrDefaultAsync(cv => cv.CommentId == commentId && cv.UserId == userId);
+
+            if (commentVote == null)
+            {
+                commentVote = new CommentVote
+                {
+                    CommentId = commentId,
+                    VoteType = isUpVote ? CommentVoteType.UpVote : CommentVoteType.DownVote,
+                    UserId = userId,
+                };
+
+                await this.commentsVotesRepository.AddAsync(commentVote);
+                await this.commentsVotesRepository.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<(double Average, int Count)> GetAverageRateAsync(string productId)
         {
             var countVotes = await this.votesRepository.All().CountAsync(v => v.ProductId == productId);
@@ -67,6 +96,17 @@
             }
 
             return await this.votesRepository.All().AnyAsync(v => v.ProductId == productId && v.UserId == userId);
+        }
+
+        public async Task<(int PositiveVotes, int NegativeVotes)> GetVotesForCommentAsync(int commentId)
+        {
+            var positiveVotes = await this.commentsVotesRepository.All()
+                .CountAsync(cv => cv.CommentId == commentId && cv.VoteType == CommentVoteType.UpVote);
+
+            var negativeVotes = await this.commentsVotesRepository.All()
+                .CountAsync(cv => cv.CommentId == commentId && cv.VoteType == CommentVoteType.DownVote);
+
+            return (positiveVotes, negativeVotes);
         }
     }
 }

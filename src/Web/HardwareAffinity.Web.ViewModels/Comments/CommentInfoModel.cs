@@ -21,5 +21,9 @@
         public string SanitizedContent => new HtmlSanitizer().Sanitize(this.Content);
 
         public bool IsDeleted { get; set; }
+
+        public int CommentPositiveVotes { get; set; }
+
+        public int CommentNegativeVotes { get; set; }
     }
 }

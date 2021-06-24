@@ -9,5 +9,9 @@
         Task<(double Average, int Count)> GetAverageRateAsync(string productId);
 
         Task<bool> HasUserVotedAsync(string productId, string userId);
+
+        Task<bool> AddVoteToCommentAsync(int commentId, bool isUpVote, string userId);
+
+        Task<(int PositiveVotes, int NegativeVotes)> GetVotesForCommentAsync(int commentId);
     }
 }

@@ -49,6 +49,13 @@
             product.Images = (IList<ImageInfoModel>)await this.imagesService.GetProductImagesAsync<ImageInfoModel>(id);
             product.Comments = await this.commentsService.GetProductCommentsAsync<CommentInfoModel>(id);
 
+            foreach (var comment in product.Comments)
+            {
+                var commentVotes = await this.votesService.GetVotesForCommentAsync(comment.Id);
+                comment.CommentPositiveVotes = commentVotes.PositiveVotes;
+                comment.CommentNegativeVotes = commentVotes.NegativeVotes;
+            }
+
             var voteInfo = await this.votesService.GetAverageRateAsync(id);
             product.AverageRate = voteInfo.Average;
             product.CountVotes = voteInfo.Count;

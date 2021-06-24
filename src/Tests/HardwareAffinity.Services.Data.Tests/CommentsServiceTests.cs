@@ -17,6 +17,7 @@
     {
         private readonly ApplicationDbContext db;
         private readonly IDeletableEntityRepository<Comment> commentsRepository;
+        private readonly IDeletableEntityRepository<CommentVote> commentVotesRepository;
         private readonly ICommentsService commentsService;
 
         public CommentsServiceTests()
@@ -27,7 +28,8 @@
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
             this.db = new ApplicationDbContext(options.Options);
             this.commentsRepository = new EfDeletableEntityRepository<Comment>(this.db);
-            this.commentsService = new CommentsService(this.commentsRepository);
+            this.commentVotesRepository = new EfDeletableEntityRepository<CommentVote>(this.db);
+            this.commentsService = new CommentsService(this.commentsRepository, this.commentVotesRepository);
         }
 
         [Fact]

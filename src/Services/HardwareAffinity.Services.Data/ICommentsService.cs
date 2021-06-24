@@ -12,5 +12,7 @@
         Task<bool> DeleteCommentAsync(int id);
 
         Task<bool> IsInProductIdAsync(int commentId, string productId);
+
+        Task<bool> DoesCommentExistsAsync(int commentId);
     }
 }
