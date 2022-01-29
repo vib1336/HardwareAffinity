@@ -1,0 +1,6 @@
+﻿@using HardwareAffinity.Web.ViewModels.Categories
+@inject HardwareAffinity.Services.Data.ICategoriesService categoriesService
+@{
+    var allCategories = (await this.categoriesService.GetAllCategoriesAsync<CategoryFormDataModel>()).ToList();
+}
+

@@ -4,6 +4,7 @@
 
     using HardwareAffinity.Data.Models;
     using HardwareAffinity.Services.Mapping;
+    using HardwareAffinity.Web.ViewModels.Categories;
     using HardwareAffinity.Web.ViewModels.Comments;
     using HardwareAffinity.Web.ViewModels.Images;
 
@@ -25,10 +26,16 @@
 
         public bool IsAddedToFavorites { get; set; }
 
+        public string CategoryTitle { get; set; }
+
+        public string CategoryId { get; set; }
+
         public CommentInputModel Comment { get; set; }
 
         public IList<ImageInfoModel> Images { get; set; }
 
         public IEnumerable<CommentInfoModel> Comments { get; set; }
+
+        public IList<CategoryFormDataModel> Categories { get; set; }
     }
 }

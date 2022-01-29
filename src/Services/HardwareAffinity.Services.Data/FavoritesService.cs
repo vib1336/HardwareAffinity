@@ -95,5 +95,15 @@
 
             return false;
         }
+
+        public async Task<int> CountMyFavoriteProductsAsync(string userId)
+        {
+            var favoriteId = await this.favoritesRepository.All()
+                .Where(f => f.UserId == userId)
+                .Select(f => f.Id)
+                .FirstOrDefaultAsync();
+
+            return await this.favoriteProductsRepository.All().CountAsync(fp => fp.FavoriteId == favoriteId);
+        }
     }
 }

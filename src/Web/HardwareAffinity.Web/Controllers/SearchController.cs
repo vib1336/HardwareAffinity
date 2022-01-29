@@ -23,7 +23,7 @@
             this.elasticClient = elasticClient;
         }
 
-        public async Task<IActionResult> SearchProducts(string query)
+        public async Task<IActionResult> SearchProducts(int categoryId, string query)
         {
             IEnumerable<AllProductsForCategoryViewModel> foundProducts
                 = new List<AllProductsForCategoryViewModel>();
@@ -56,7 +56,7 @@
                 //    .ToList();
 
                 foundProducts = await this.productsService
-                    .SearchProductsAsync<AllProductsForCategoryViewModel>(query);
+                    .SearchProductsAsync<AllProductsForCategoryViewModel>(query, categoryId);
 
                 if (foundProducts.Count() == 0)
                 {

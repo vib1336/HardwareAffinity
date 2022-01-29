@@ -32,7 +32,7 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="custom-black-button btn-block">Register</button>
+            <button type="submit" class="primary-btn btn-block">Register</button>
         </form>
         @if ((Model.ExternalLogins?.Count ?? 0) != 0)
         {
@@ -44,7 +44,7 @@
                     <p>
                         @foreach (var provider in Model.ExternalLogins)
                         {
-                            <button type="submit" class="custom-black-button btn-block" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                            <button type="submit" class="primary-btn btn-block" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                         }
                     </p>
                 </div>

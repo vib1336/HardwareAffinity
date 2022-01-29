@@ -1,10 +1,12 @@
 ﻿namespace HardwareAffinity.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using HardwareAffinity.Services.Data;
     using HardwareAffinity.Web.Extensions;
+    using HardwareAffinity.Web.ViewModels.Categories;
     using HardwareAffinity.Web.ViewModels.Comments;
     using HardwareAffinity.Web.ViewModels.Images;
     using HardwareAffinity.Web.ViewModels.Products;
@@ -20,19 +22,22 @@
         private readonly IVotesService votesService;
         private readonly ICommentsService commentsService;
         private readonly IFavoritesService favoritesService;
+        private readonly ICategoriesService categoriesService;
 
         public ProductsController(
             IProductsService productsService,
             IIMagesService imagesService,
             IVotesService votesService,
             ICommentsService commentsService,
-            IFavoritesService favoritesService)
+            IFavoritesService favoritesService,
+            ICategoriesService categoriesService)
         {
             this.productsService = productsService;
             this.imagesService = imagesService;
             this.votesService = votesService;
             this.commentsService = commentsService;
             this.favoritesService = favoritesService;
+            this.categoriesService = categoriesService;
         }
 
         public async Task<IActionResult> Details(string id)
@@ -48,6 +53,7 @@
             var userId = this.User.GetId();
             product.Images = (IList<ImageInfoModel>)await this.imagesService.GetProductImagesAsync<ImageInfoModel>(id);
             product.Comments = await this.commentsService.GetProductCommentsAsync<CommentInfoModel>(id);
+            product.Categories = (await this.categoriesService.GetAllCategoriesAsync<CategoryFormDataModel>()).ToList();
 
             foreach (var comment in product.Comments)
             {

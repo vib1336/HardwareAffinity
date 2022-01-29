@@ -265,11 +265,22 @@
             .To<T>()
             .ToListAsync();
 
-        public async Task<IEnumerable<T>> SearchProductsAsync<T>(string query)
-            => await this.productsRepository.All()
-            .Where(p => p.Title.ToLower().Contains(query.ToLower())
-            || p.Description.ToLower().Contains(query.ToLower()))
-            .To<T>()
-            .ToListAsync();
+        public async Task<IEnumerable<T>> SearchProductsAsync<T>(string query, int categoryId = 0)
+        {
+            if (categoryId != 0)
+            {
+               return await this.productsRepository.All()
+              .Where(p => (p.CategoryId == categoryId && p.Title.ToLower().Contains(query.ToLower()))
+              || p.Description.ToLower().Contains(query.ToLower()))
+              .To<T>()
+              .ToListAsync();
+            }
+
+            return await this.productsRepository.All()
+              .Where(p => p.Title.ToLower().Contains(query.ToLower())
+              || p.Description.ToLower().Contains(query.ToLower()))
+              .To<T>()
+              .ToListAsync();
+        }
     }
 }

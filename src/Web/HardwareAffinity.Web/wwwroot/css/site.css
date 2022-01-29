@@ -193,7 +193,9 @@ body {
     cursor: pointer;
 }
 /*overwrite bootstrap classes*/
-
+.dropdown-menu{
+    background-color:black;
+}
 .disabled-stars {
     pointer-events: none;
     color: gray;
