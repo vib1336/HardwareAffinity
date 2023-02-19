@@ -9,7 +9,7 @@ https://hardwareaffinity.azurewebsites.net/
 
 ## Used technologies
 
-* ASP.NET Core 3.13
+* ASP.NET Core 3.1
 * EF Core 3.1
 * SQL Server
 * Bootstrap 4.5.3
