@@ -89,7 +89,16 @@ ul, ol {
 /*----------------------------*\
 	Buttons
 \*----------------------------*/
-
+/*log out  btn custom css*/
+.my-custom-btn:hover {
+    color: #d10024;
+}
+.my-custom-btn {
+    color: white;
+    background-color: #1e1f29;
+    border: none;
+}
+/*end of log out btn custom css*/
 .primary-btn {
   display: inline-block;
   padding: 12px 30px;
